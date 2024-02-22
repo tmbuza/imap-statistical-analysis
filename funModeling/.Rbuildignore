@@ -1,0 +1,8 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+README.*
+vignettes/figure
+myTESTS
+LICENSE.md
+AUX
+docs

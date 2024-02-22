@@ -1,0 +1,162 @@
+# (PART) PROCESSED DATA {-}
+
+# Explore Microbiome Data {#data-for-stats}
+
+## Import microbiome demo dataset
+Using `dietswap` from `microbiome` package
+
+```{r demo_data}
+library(microbiome)
+data("dietswap", package = "microbiome")
+ps <- dietswap
+```
+
+## Create tidy dataframe
+```{r prepare_df}
+library(phyloseq)
+library(tidyverse)
+
+df <-dietswap %>% 
+  phyloseq::psmelt() %>% 
+  select(-sample) %>% 
+  tibble::rownames_to_column("sample_id") %>% 
+  rename_all(tolower)
+
+```
+
+## Find missing values
+```{r status}
+library(tidyverse)
+library(funModeling)
+
+df_status(df, print_results = FALSE) %>% 
+  select(variable, type, unique, p_zeros) %>% tibble::tibble()
+```
+
+
+## Distributions for categoric variables
+```{r freq_catvars}
+
+freq(df, 
+     input = c("sex", "nationality", "group", "bmi_group"), 
+     plot = TRUE,
+     na.rm = FALSE)
+```
+
+
+
+
+<!-- # (PART) MACHINE LEARNING {-} -->
+<!-- # Measuring model performance -->
+
+<!-- ![](images/gain_vs_roc.svg){width=100%} -->
+
+<!-- ## Cumulative Gains Charts with `funModeling` -->
+
+<!-- Dataset: Heart disease dataset from the `funModeling` R package -->
+
+<!-- ## Load dataset and examine its structure -->
+<!-- ```{r} -->
+
+<!-- data(heart_disease, package = "funModeling") -->
+<!-- df <- heart_disease -->
+
+<!-- df_status(df, print_results = FALSE) %>%  -->
+<!--   select(variable, type, unique, p_zeros) %>% tibble::tibble() -->
+<!-- ``` -->
+
+<!-- ## Create machine learning model -->
+<!-- ```{r glm_model} -->
+<!-- fit_glm=glm(has_heart_disease ~ age + oldpeak, data=df, family = binomial) -->
+
+<!-- ``` -->
+
+
+<!-- ## Get the scores for positive case -->
+<!-- ```{r scores} -->
+<!-- df$score=predict(fit_glm, newdata=df, type='response') -->
+<!-- ``` -->
+
+<!-- ## Calculate performance metrics -->
+<!-- ```{r perfometrics, message=FALSE, warning=FALSE} -->
+<!-- gain_lift(data=df, score='score', target='has_heart_disease') -->
+<!-- ``` -->
+
+<!-- # Coordinate plot -->
+<!-- ```{r coord} -->
+<!-- coord_plot(data=mtcars, group_var="cyl", group_func=median, print_table=TRUE) -->
+<!-- ``` -->
+
+
+<!-- # Beta diversity -->
+
+<!-- Bray-Curtis -->
+<!-- ```{r bray} -->
+<!-- library(vegan) -->
+
+<!-- ps <- ps -->
+
+<!-- otutable <- otu_table(ps) %>%  -->
+<!--   psmelt() %>%  -->
+<!--   group_by(Sample) %>% -->
+<!--   mutate(N = sum(Abundance)) %>% -->
+<!--   ungroup() -->
+
+<!-- n=min(otutable$N) -->
+
+<!-- otutable <- otutable %>%  -->
+<!--   filter(N >= n) %>% -->
+<!--   select(-N) %>%  -->
+<!--   pivot_wider(names_from="OTU", values_from="Abundance", values_fill=0) %>% -->
+<!--   column_to_rownames("Sample") -->
+
+<!-- ## Getting Bray-`Curtis` distances -->
+<!-- bray <- avgdist(otutable, dmethod="bray", sample=1776) %>% -->
+<!--   as.matrix() %>% -->
+<!--   as_tibble(rownames = "A") %>% -->
+<!--   pivot_longer(-A, names_to="B", values_to="distances") -->
+
+<!-- bray %>% -->
+<!--   ggplot(aes(x=A, y=B, fill=distances)) + -->
+<!--   geom_tile() + -->
+<!--   theme(axis.text = element_blank()) + -->
+<!--   scale_fill_gradient(low="#FF0000", high="#FFFFFF", name=NULL) -->
+<!-- ``` -->
+
+<!-- Jaccard -->
+<!-- ```{r jaccard} -->
+<!-- ## Getting `Jaccard` distances -->
+<!-- jaccard <- avgdist(otutable, dmethod="jaccard", sample=1776) %>% -->
+<!--   as.matrix() %>% -->
+<!--   as_tibble(rownames = "A") %>% -->
+<!--   pivot_longer(-A, names_to="B", values_to="distances") -->
+
+<!-- jaccard %>% -->
+<!--   ggplot(aes(x=A, y=B, fill=distances)) + -->
+<!--   geom_tile() + -->
+<!--   theme(axis.text = element_blank()) + -->
+<!--   scale_fill_gradient(low="#FF0000", high="#FFFFFF", name=NULL) -->
+<!-- ``` -->
+
+
+<!-- Bray-Curtis and Jaccard -->
+<!-- ```{r bray_jcard} -->
+<!-- labels <- tibble( -->
+<!--   x=c(50, 190), -->
+<!--   y=c(190, 30), -->
+<!--   label=c("Bray-Curtis", "Jaccard") -->
+<!-- ) -->
+
+<!-- inner_join(bray, jaccard, by=c("A", "B")) %>% -->
+<!--   select(A, B, bray=distances.x, jaccard=distances.y) %>% -->
+<!--   mutate(distances = if_else(A < B, bray, jaccard)) %>% -->
+<!--   ggplot(aes(x=A, y=B, fill=distances)) + -->
+<!--   geom_tile() + -->
+<!--   geom_text(data=labels, aes(x=(x), y=y, label=label), inherit.aes=FALSE, -->
+<!--             size=10) + -->
+<!--   scale_fill_gradient(low="#FF0000", high="#FFFFFF", name=NULL) + -->
+<!--   labs(x="", y="") + -->
+<!--   theme_classic() + -->
+<!--   theme(axis.text = element_blank()) -->
+<!-- ``` -->
+
