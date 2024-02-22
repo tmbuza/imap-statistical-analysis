@@ -1,8 +1,4 @@
-data-for-stats
-import-microbiome-demo-dataset
-create-tidy-dataframe
-find-missing-values
-distributions-for-categoric-variables
+microbiome-statistical-analysis-steps
 imap-github-repos
 read-qc-rulegraph
 session-information
