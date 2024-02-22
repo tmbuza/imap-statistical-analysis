@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>1 Measuring model performance | IMAP: Integrated Microbiome Analysis Pipelines</title>
+<meta name="author" content="Teresia Mrema-Buza">
+<meta name="description" content='1.1 Cumulative Gains Charts with funModeling Dataset: Heart disease dataset from the funModeling R package  1.2 Load dataset and examine its structure  data(heart_disease, package = "funModeling")...'>
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="1 Measuring model performance | IMAP: Integrated Microbiome Analysis Pipelines">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://tmbuza.github.io/imap-machine-learning/measuring-model-performance.html">
+<meta property="og:image" content="https://tmbuza.github.io/imap-machine-learning/images/planning.png">
+<meta property="og:description" content='1.1 Cumulative Gains Charts with funModeling Dataset: Heart disease dataset from the funModeling R package  1.2 Load dataset and examine its structure  data(heart_disease, package = "funModeling")...'>
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1 Measuring model performance | IMAP: Integrated Microbiome Analysis Pipelines">
+<meta name="twitter:description" content='1.1 Cumulative Gains Charts with funModeling Dataset: Heart disease dataset from the funModeling R package  1.2 Load dataset and examine its structure  data(heart_disease, package = "funModeling")...'>
+<meta name="twitter:image" content="https://tmbuza.github.io/imap-machine-learning/images/planning.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Sen-0.4.8/font.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM%20Mono&amp;display=swap" rel="stylesheet">
+<link href="libs/Bitter-0.4.8/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="End-to-End Practical User Guides Using Integrated Approaches"><big>IMAP:</big> Integrated Microbiome Analysis Pipelines</a>:
+        <small class="text-muted">End-to-End Practical User Guides Using Integrated Approaches</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">IMAP-STATS: Statistical Analysis of Microbiome Data</a></li>
+<li class="book-part">MACHINE LEARNING</li>
+<li><a class="active" href="measuring-model-performance.html"><span class="header-section-number">1</span> Measuring model performance</a></li>
+<li><a class="" href="coordinate-plot.html"><span class="header-section-number">2</span> Coordinate plot</a></li>
+<li><a class="" href="beta-diversity.html"><span class="header-section-number">3</span> Beta diversity</a></li>
+<li class="book-part">STATISTICAL ANALYSIS</li>
+<li><a class="" href="diversity-analysis.html"><span class="header-section-number">4</span> Microbial Diversity Analysis</a></li>
+<li class="book-part">APPENDIX</li>
+<li><a class="" href="imap-github-repos.html"><span class="header-section-number">A</span> IMAP GitHub Repos</a></li>
+<li><a class="" href="read-qc-rulegraph.html"><span class="header-section-number">B</span> Read QC Rulegraph</a></li>
+<li><a class="" href="session-information.html"><span class="header-section-number">C</span> Session Information</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/tmbuza/imap-machine-learning">View book source <i class="fas fa-air-freshener"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="measuring-model-performance" class="section level1" number="1">
+<h1>
+<span class="header-section-number">1</span> Measuring model performance<a class="anchor" aria-label="anchor" href="#measuring-model-performance"><i class="fas fa-link"></i></a>
+</h1>
+<div class="inline-figure"><img src="images/gain_vs_roc.svg" style="width:100.0%"></div>
+<div id="cumulative-gains-charts-with-funmodeling" class="section level2" number="1.1">
+<h2>
+<span class="header-section-number">1.1</span> Cumulative Gains Charts with <code>funModeling</code><a class="anchor" aria-label="anchor" href="#cumulative-gains-charts-with-funmodeling"><i class="fas fa-link"></i></a>
+</h2>
+<p>Dataset: Heart disease dataset from the <code>funModeling</code> R package</p>
+</div>
+<div id="load-dataset-and-examine-its-structure" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> Load dataset and examine its structure<a class="anchor" aria-label="anchor" href="#load-dataset-and-examine-its-structure"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="measuring-model-performance.html#cb8-1" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="measuring-model-performance.html#cb8-2" tabindex="-1"></a><span class="fu">data</span>(heart_disease, <span class="at">package =</span> <span class="st">"funModeling"</span>)</span>
+<span id="cb8-3"><a href="measuring-model-performance.html#cb8-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> heart_disease</span>
+<span id="cb8-4"><a href="measuring-model-performance.html#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="measuring-model-performance.html#cb8-5" tabindex="-1"></a><span class="fu">df_status</span>(df, <span class="at">print_results =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-6"><a href="measuring-model-performance.html#cb8-6" tabindex="-1"></a>  <span class="fu">select</span>(variable, type, unique, p_zeros) <span class="sc">%&gt;%</span> tibble<span class="sc">::</span><span class="fu">tibble</span>()</span>
+<span id="cb8-7"><a href="measuring-model-performance.html#cb8-7" tabindex="-1"></a><span class="co"># A tibble: 16 × 4</span></span>
+<span id="cb8-8"><a href="measuring-model-performance.html#cb8-8" tabindex="-1"></a>   variable               type    unique p_zeros</span>
+<span id="cb8-9"><a href="measuring-model-performance.html#cb8-9" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                  <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb8-10"><a href="measuring-model-performance.html#cb8-10" tabindex="-1"></a> <span class="dv">1</span> age                    integer     <span class="dv">41</span>     <span class="dv">0</span>  </span>
+<span id="cb8-11"><a href="measuring-model-performance.html#cb8-11" tabindex="-1"></a> <span class="dv">2</span> gender                 factor       <span class="dv">2</span>     <span class="dv">0</span>  </span>
+<span id="cb8-12"><a href="measuring-model-performance.html#cb8-12" tabindex="-1"></a> <span class="dv">3</span> chest_pain             factor       <span class="dv">4</span>     <span class="dv">0</span>  </span>
+<span id="cb8-13"><a href="measuring-model-performance.html#cb8-13" tabindex="-1"></a> <span class="dv">4</span> resting_blood_pressure integer     <span class="dv">50</span>     <span class="dv">0</span>  </span>
+<span id="cb8-14"><a href="measuring-model-performance.html#cb8-14" tabindex="-1"></a> <span class="dv">5</span> serum_cholestoral      integer    <span class="dv">152</span>     <span class="dv">0</span>  </span>
+<span id="cb8-15"><a href="measuring-model-performance.html#cb8-15" tabindex="-1"></a> <span class="dv">6</span> fasting_blood_sugar    factor       <span class="dv">2</span>    <span class="fl">85.2</span></span>
+<span id="cb8-16"><a href="measuring-model-performance.html#cb8-16" tabindex="-1"></a> <span class="dv">7</span> resting_electro        factor       <span class="dv">3</span>    <span class="fl">49.8</span></span>
+<span id="cb8-17"><a href="measuring-model-performance.html#cb8-17" tabindex="-1"></a> <span class="dv">8</span> max_heart_rate         integer     <span class="dv">91</span>     <span class="dv">0</span>  </span>
+<span id="cb8-18"><a href="measuring-model-performance.html#cb8-18" tabindex="-1"></a> <span class="dv">9</span> exer_angina            integer      <span class="dv">2</span>    <span class="fl">67.3</span></span>
+<span id="cb8-19"><a href="measuring-model-performance.html#cb8-19" tabindex="-1"></a><span class="dv">10</span> oldpeak                numeric     <span class="dv">40</span>    <span class="fl">32.7</span></span>
+<span id="cb8-20"><a href="measuring-model-performance.html#cb8-20" tabindex="-1"></a><span class="dv">11</span> slope                  integer      <span class="dv">3</span>     <span class="dv">0</span>  </span>
+<span id="cb8-21"><a href="measuring-model-performance.html#cb8-21" tabindex="-1"></a><span class="dv">12</span> num_vessels_flour      integer      <span class="dv">4</span>    <span class="fl">58.1</span></span>
+<span id="cb8-22"><a href="measuring-model-performance.html#cb8-22" tabindex="-1"></a><span class="dv">13</span> thal                   factor       <span class="dv">3</span>     <span class="dv">0</span>  </span>
+<span id="cb8-23"><a href="measuring-model-performance.html#cb8-23" tabindex="-1"></a><span class="dv">14</span> heart_disease_severity integer      <span class="dv">5</span>    <span class="fl">54.1</span></span>
+<span id="cb8-24"><a href="measuring-model-performance.html#cb8-24" tabindex="-1"></a><span class="dv">15</span> exter_angina           factor       <span class="dv">2</span>    <span class="fl">67.3</span></span>
+<span id="cb8-25"><a href="measuring-model-performance.html#cb8-25" tabindex="-1"></a><span class="dv">16</span> has_heart_disease      factor       <span class="dv">2</span>     <span class="dv">0</span>  </span></code></pre></div>
+</div>
+<div id="create-machine-learning-model" class="section level2" number="1.3">
+<h2>
+<span class="header-section-number">1.3</span> Create machine learning model<a class="anchor" aria-label="anchor" href="#create-machine-learning-model"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fit_glm</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">has_heart_disease</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">oldpeak</span>, data<span class="op">=</span><span class="va">df</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="get-the-scores-for-positive-case" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> Get the scores for positive case<a class="anchor" aria-label="anchor" href="#get-the-scores-for-positive-case"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span><span class="op">$</span><span class="va">score</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fit_glm</span>, newdata<span class="op">=</span><span class="va">df</span>, type<span class="op">=</span><span class="st">'response'</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="calculate-performance-metrics" class="section level2" number="1.5">
+<h2>
+<span class="header-section-number">1.5</span> Calculate performance metrics<a class="anchor" aria-label="anchor" href="#calculate-performance-metrics"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">gain_lift</span><span class="op">(</span>data<span class="op">=</span><span class="va">df</span>, score<span class="op">=</span><span class="st">'score'</span>, target<span class="op">=</span><span class="st">'has_heart_disease'</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="figures/perfometrics-1.png" width="70%" style="display: block; margin: auto;"></div>
+<pre><code>   Population   Gain Lift Score.Point
+1          10  20.86 2.09   0.8185793
+2          20  35.97 1.80   0.6967124
+3          30  48.92 1.63   0.5657817
+4          40  61.15 1.53   0.4901940
+5          50  69.06 1.38   0.4033640
+6          60  78.42 1.31   0.3344170
+7          70  87.77 1.25   0.2939878
+8          80  92.09 1.15   0.2473671
+9          90  96.40 1.07   0.1980453
+10        100 100.00 1.00   0.1195511</code></pre>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">IMAP-STATS: Statistical Analysis of Microbiome Data</a></div>
+<div class="next"><a href="coordinate-plot.html"><span class="header-section-number">2</span> Coordinate plot</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#measuring-model-performance"><span class="header-section-number">1</span> Measuring model performance</a></li>
+<li><a class="nav-link" href="#cumulative-gains-charts-with-funmodeling"><span class="header-section-number">1.1</span> Cumulative Gains Charts with funModeling</a></li>
+<li><a class="nav-link" href="#load-dataset-and-examine-its-structure"><span class="header-section-number">1.2</span> Load dataset and examine its structure</a></li>
+<li><a class="nav-link" href="#create-machine-learning-model"><span class="header-section-number">1.3</span> Create machine learning model</a></li>
+<li><a class="nav-link" href="#get-the-scores-for-positive-case"><span class="header-section-number">1.4</span> Get the scores for positive case</a></li>
+<li><a class="nav-link" href="#calculate-performance-metrics"><span class="header-section-number">1.5</span> Calculate performance metrics</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/tmbuza/imap-machine-learning/blob/gh-pages/index.Rmd">View source <i class="fas fa-air-freshener"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/tmbuza/imap-machine-learning/edit/gh-pages/index.Rmd">Edit this page <i class="fas fa-air-freshener"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6 mt-3">
+        <p><strong><u><a class="text-light" href="https://microbiome.complexdatainsights.com"><big>IMAP:</big> Integrated Microbiome Analysis Pipelines</a></u></strong>: End-to-End Practical User Guides Using Integrated Approaches</p>
+<br><p>Authored by Teresia Mrema-Buza, Last updated: <b>2024-02-22</b>.</p>
+<br>
+</div>
+      <div class="col-12 col-md-6 mt-3">
+        <p>Note: This practical guide was created using the <a class="text-light" href="https://bookdown.org/yihui/bookdown/">bookdown</a> R package, styled with the modern bs4_book format.</p>
+      </div>
+
+    </div>
+  </div>
+</footer>
+</body>
+</html>
