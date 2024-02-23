@@ -11,3 +11,4 @@ gitbook?*
 .vscode
 .DS_store
 Rplot.pdf
+renv/
