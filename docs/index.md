@@ -47,7 +47,7 @@ description: |
 
 <br>
 <br>
-![Book cover](images/stats.png){width=100%}
+![](images/stats.png){width=100%}
 
 
 ## Welcome to the Statistical Analysis Guide for Microbiome Studies {-}
