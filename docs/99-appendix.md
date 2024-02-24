@@ -22,7 +22,7 @@
 href="https://github.com/datainsights/imap-project-overview/">IMAP-OVERVIEW</a></td>
 <td>IMAP project overview</td>
 <td align="right"><a
-href="https://datainsights.github.io/imap-project-overview/">In-progress</a></td>
+href="https://tmbuza.github.io/imap-project-overview/">In-progress</a></td>
 </tr>
 <tr class="even">
 <td align="left"><a

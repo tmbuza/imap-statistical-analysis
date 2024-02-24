@@ -6,7 +6,7 @@
 
 | Repo | Description | Status |
 |:-----------------------|----------------------------------|--------------:|
-| [IMAP-OVERVIEW](https://github.com/datainsights/imap-project-overview/) | IMAP project overview | [In-progress](https://datainsights.github.io/imap-project-overview/) |
+| [IMAP-OVERVIEW](https://github.com/datainsights/imap-project-overview/) | IMAP project overview | [In-progress](https://tmbuza.github.io/imap-project-overview/) |
 | [IMAP-PART 01](https://github.com/tmbuza/imap-software-requirements/) | Software requirement for microbiome data analysis with Snakemake workflows | [In-progress](https://tmbuza.github.io/imap-software-requirements/) |
 | [IMAP-PART 02](https://github.com/tmbuza/imap-sample-metadata/) | Downloading and exploring microbiome sample metadata from SRA Database | [In-progress](https://tmbuza.github.io/imap-sample-metadata/) |
 | [IMAP-PART 03](https://github.com/tmbuza/imap-download-sra-reads/) | Downloading and filtering microbiome sequencing data from SRA database | [In-progress](https://tmbuza.github.io/imap-download-sra-reads/) |
