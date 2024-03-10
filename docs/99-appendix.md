@@ -31,7 +31,7 @@ href="https://github.com/tmbuza/imap-software-requirements/">IMAP-PART
 <td>Software requirement for microbiome data analysis with Snakemake
 workflows</td>
 <td align="right"><a
-href="https://tmbuza.github.io/imap-software-requirements/">In-progress</a></td>
+href="https://tmbuza.github.io/imap-essential-software/">In-progress</a></td>
 </tr>
 <tr class="odd">
 <td align="left"><a
