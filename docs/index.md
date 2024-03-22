@@ -51,5 +51,5 @@ description: |
 
 
 ## Welcome to the Statistical Analysis Guide for Microbiome Studies {-}
-Embarking on the exploration of microbiome statistical analysis, our guide aims to unravel the intricacies of deciphering data pertaining to the structure and function of microbial communities. This analytical journey is instrumental in unraveling the nuanced relationships existing between microorganisms and their hosts or environments. Join us as we delve into the guide, navigating the essential steps to extract meaningful insights from the complex world of microbiomes.
+Embarking on the exploration of microbiome statistical analysis, our guide aims to unravel the complexities of deciphering data pertaining to the structure and function of microbial communities. This analytical journey is instrumental in unraveling the nuanced relationships existing between microorganisms and their hosts or environments. Join us as we delve into the guide, navigating the essential steps to extract meaningful insights from the complex world of microbiomes.
 
