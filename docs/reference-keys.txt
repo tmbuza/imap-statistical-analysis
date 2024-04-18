@@ -1,4 +1,15 @@
 microbiome-statistical-analysis-steps
+part-statistical-analysis
+statistical-significance-analysis
+permanova
+lda-effect-size
+taxa-prevalence-and-detection
+population-wise-multivariate-anova
+core-taxa-multivariate-anova
+diff_abund
+testing-with-deseq2-tool
+biomarker-discovery
+microbial-pkg-markers
 imap-github-repos
 read-qc-rulegraph
 session-information

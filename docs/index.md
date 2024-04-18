@@ -2,7 +2,7 @@
 title: "<big>IMAP:</big> Integrated Microbiome Analysis Pipelines"
 subtitle: "End-to-End Practical User Guides Using Integrated Approaches"
 date:
-- <b>2024-02-22</b>
+- <b>2024-04-18</b>
 author: Teresia Mrema-Buza
 site: bookdown::bookdown_site
 documentclass: book
@@ -17,10 +17,9 @@ citation_package:
   - natbib
   - biblatex
   - amsplain
-url: https://tmbuza.github.io/imap-machine-learning/
-cover-image: images/planning.png
+url: https://tmbuza.github.io/imap-statistical-analysis/
 email_address: "ndelly@gmail.com"
-github-repo: tmbuza/imap-machine-learning
+github-repo: tmbuza/imap-statistical-analysis
 biblio-style: apalike
 description: |
   | This part will be added before release.

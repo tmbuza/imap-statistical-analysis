@@ -1,0 +1,279 @@
+# (PART) STATISTICAL ANALYSIS
+
+# Statistical Significance Analysis
+
+This section delves into statistical analysis methods tailored specifically for microbiome data. Statistical analysis plays a crucial role in understanding the complex relationships and patterns within microbiome datasets, helping researchers uncover significant findings and insights into microbial community dynamics, composition, and responses to various environmental factors or treatments.
+
+```{r}
+knitr::opts_chunk$set(
+  echo  =TRUE,
+  message  =FALSE,
+  warning  =FALSE,
+  cache  =FALSE,
+  fig.path = "figures",
+  comment  =NA)
+  
+```
+
+
+```{r message=FALSE, warning=FALSE}
+# Load required packages
+library(phyloseq)
+library(tidyverse)
+library(microbial)
+library(microbiome)
+library(microViz)
+
+cat("\nSaved RData objects\n\n")
+load("../imap-data-exploration/data/dataframe_objects.rda", verbose = T)
+load("../imap-data-exploration/data/phyloseq_objects.rda", verbose = T)
+load("../imap-data-exploration/data/phyloseq_extra_objects.rda", verbose = T)
+load("../imap-data-exploration/data/ps_transformed.rda", verbose = T)
+load("../imap-data-exploration/data/bray_distances.rda", verbose = T)
+load("../imap-data-exploration/data/psextra_distances.rda", verbose = T)
+load("../imap-data-exploration/data/reduced_dimension.rda", verbose = T)
+load("../imap-data-exploration/data/phyloseq_raw_rel_psextra_df_objects.rda", verbose = T)
+
+```
+
+## Permutational Multivariate Analysis of Variance {#permanova}
+
+PERMANOVA (Permutational Multivariate Analysis of Variance) is a statistical test used to assess the significance of differences between groups of microbial communities. Particularly suited for analyzing multivariate data like microbiome composition, PERMANOVA offers valuable insights into how different experimental conditions or treatments impact microbial community structure.
+
+```{r message=FALSE, warning=FALSE}
+library(microViz) 
+library(dplyr) 
+
+bray_perm <- psextra_log10p_asin_bray_dist %>%
+  dist_permanova(
+    seed = 1234, # for set.seed to ensure reproducibility of random process
+    n_processes = 1, n_perms = 99, # you should use at least 999!
+    variables = "bmi_group"
+  )
+
+perm_get(bray_perm) %>% as.data.frame()
+
+
+info_get(bray_perm)
+
+```
+
+
+## LEfSe: Linear discriminant analysis (LDA) effect size {#lda-effect-size}
+
+Linear discriminant analysis effect size (LEfSe) is a statistical method used for biomarker discovery and identification of differentially abundant features between two or more biological groups. 
+
+- LEfSe combines LDA (Linear Discriminant Analysis) and effect size estimation to identify microbial taxa or features that are most likely to explain differences between groups. 
+
+
+
+**LDA plot**
+
+```{r lefse_LDA}
+if(!dir.create("data")) {dir.create("data")}
+
+# source("_microbial_plot.R")
+library(tidyverse)
+library(microbial)
+
+
+# Nationality
+lda_nat <- ldamarker(ps_raw, group="nationality")
+
+p <- lda_nat %>%
+plotLDA(group=c("AAM","AFR"), lda = 4.5) +
+  labs(fill = NULL)
+
+
+# BMI
+lda_bmi <- ldamarker(ps_raw, group="bmi_group")
+
+lda_bmi %>%
+plotLDA(group=c("lean", "overweight"), lda = 4.5) +
+  labs(fill = NULL)
+
+lda_bmi %>%
+plotLDA(group=c("lean", "obese"), lda = 4) +
+  labs(fill = NULL)
+
+lda_bmi %>%
+plotLDA(group=c("overweight", "obese"), lda = 4.5) +
+  labs(fill = NULL)
+```
+
+
+## Taxa Prevalence and Detection
+
+Taxa prevalence refers to the frequency or occurrence of a particular taxonomic unit (e.g., a species or genus) within a given dataset or set of samples.
+
+- It quantifies how often a taxon is present or detected across the samples under study.
+- High prevalence indicates that the taxon is commonly found across many samples
+- Low prevalence suggests that the taxon is more sporadic or rare.
+- Analyzing taxa prevalence can provide insights into the distribution of different microbial taxa.
+
+
+```{r minmax_values}
+library(phyloseq)
+
+# Min and max sample and taxa sums: These values are useful when setting up some threshholds.
+
+cat("Minimum sample sums:", min(data.frame(sample_sums(ps_raw))), "\n\n")
+cat("Maximum sample sums:", max(data.frame(sample_sums(ps_raw))), "\n\n")
+cat("Minimum taxa sums:", min(data.frame(taxa_sums(ps_raw))), "\n\n")
+cat("Maximum taxa sums:", max(data.frame(taxa_sums(ps_raw))), "\n\n")
+```
+
+
+**Subsetting to core taxa**
+
+```{r ps_corem, message=FALSE, warning=FALSE}
+ps_prune_sample <- phyloseq::subset_samples(ps_raw, phyloseq::sample_sums(ps_raw) >20000)
+ps_prune_taxa <- phyloseq::prune_taxa(phyloseq::taxa_sums(ps_prune_sample) > 0, ps_prune_sample)
+ps_core <- microbiome::core(ps_prune_taxa, detection  = 0.01, prevalence = 0.01)
+ps_core
+```
+
+## PERMANOVA: Permutation Analysis of Variance {#permanova}
+Use PERMANOVA to assess the significance of differences between groups based on multivariate data. PERMANOVA is a flexible and robust method that accounts for various data characteristics and can provide valuable insights into the factors driving variation in the data.
+
+```{r permanova, message=FALSE, warning=FALSE}
+## Permanova
+
+library(kableExtra)
+library(tidyverse)
+library(magrittr)
+
+ps_prune_sample <- phyloseq::subset_samples(ps_raw, phyloseq::sample_sums(ps_raw) >15000)
+ps_prune_taxa <- phyloseq::prune_taxa(phyloseq::taxa_sums(ps_prune_sample) > 0, ps_prune_sample)
+ps_core <- microbiome::core(ps_prune_taxa, detection  = 0.01, prevalence = 0.01)
+ps_core
+```
+
+## Population-wise multivariate ANOVA
+```{r ps_raw_anova} 
+library(vegan)
+library(microbial)
+
+ps_raw %>% 
+betatest(group = c("nationality", "bmi_group"), distance = "bray") %>%
+  set_colnames(c("Group", "Df", "SumsOfSqs", "MeanSqs", "FModel", "R2", "Pvalue")) %>% 
+  kable(format = "html") %>%
+  kable_styling(bootstrap_options = "basic", full_width = F, position = "float_left")  %>%
+  column_spec(7, bold = TRUE, color = "black", background = "#eeeeee")
+```
+
+
+
+## Core taxa multivariate ANOVA
+```{r ps_core_anova}  
+ps_core %>% 
+betatest(group = c("nationality", "bmi_group"), distance = "bray") %>%
+  set_colnames(c("Group", "Df", "SumsOfSqs", "MeanSqs", "FModel", "R2", "Pvalue")) %>% 
+  kable(format = "html") %>%
+  kable_styling(bootstrap_options = "basic", full_width = F, position = "float_left")  %>%
+  column_spec(7, bold = TRUE, color = "black", background = "#eeeeee")
+
+```
+
+
+##  Differential abundance Analysis {#diff_abund}
+
+Perform differential abundance analysis to identify features that show statistically significant differences in abundance between groups.
+
+- This analysis allow researchers to determine which features are associated with the studied conditions or factors.
+- Statistical tests, such as t-tests, Wilcoxon rank-sum tests, or analysis of variance (ANOVA) can help in assessing the significance of the differences and determine if they are beyond what would be expected by chance.
+
+### Testing with DESeq2 tool
+```{r diffabund_table, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggtext)
+
+difftest <- difftest(ps_raw, group="nationality")
+
+difftest %>%
+  select(log2FoldChange, pvalue, padj, Significant) %>%
+  filter(Significant == "Yes") %>%
+  filter(padj <= 0.05) %>%
+  head(10) %>%
+  kbl(caption = "Differential abundance results") %>%
+  kable_styling(bootstrap_options = "basic", full_width = F, position = "float_left")
+
+### Differential abundance plot
+
+library(dplyr)
+library(microbial)
+
+difftest_w_meta <- difftest %>%
+  rename_all(~ make.unique(tolower(.), sep = "_")) %>%
+  tibble::rownames_to_column("otu") %>%
+  inner_join(., psmelt(ps_raw), by = c("otu" = "OTU")) %>%
+  relocate(c(nationality, bmi_group), .after = otu) %>%
+  mutate(nationality = factor(nationality,
+                      levels = c("AAM", "AFR"),
+                      labels = c("African American", "African")),
+         bmi_group = factor(bmi_group,
+                      levels = c("lean", "overweight", "obese"),
+                      labels = c("Lean", "Overweight", "Obese"))) %>%
+  rename_all(~ make.unique(tolower(.), sep = "_")) %>%
+  select(-phylum_1, -family_1, -genus_1) %>%
+  distinct(otu, .keep_all = TRUE) %>%
+  pivot_longer(cols = c("phylum", "family", "genus"), names_to = "level", values_to = "taxon") %>%
+  mutate(taxon = str_replace(string = taxon,
+                            pattern = "(.*)",
+                            replacement = "*\\1*"),
+        taxon = str_replace(string = taxon,
+                            pattern = "\\*(.*)_unclassified\\*",
+                            replacement = "Unclassified<br>*\\1*"),
+        taxon = str_replace_all(taxon, "_", " ")) %>%
+  filter(padj <= 0.0001) %>%
+  filter(level == "genus")
+
+difftest_w_meta %>%
+  ggplot(aes(y = reorder(taxon, log2foldchange), x = log2foldchange, fill = nationality)) +
+  geom_col() +
+  theme_light() +
+  labs(x = "Log2 Fold Change", y = "", fill = NULL, subtitle = "Differential abundance by nationality") +
+  theme(axis.text.y = element_markdown(size = 7),
+        legend.text = element_markdown(size = 7)) +
+  coord_cartesian(xlim = c(-3, 4))
+
+difftest_w_meta %>%
+  ggplot(aes(y = reorder(taxon, log2foldchange), x = log2foldchange, fill = bmi_group)) +
+  geom_col() +
+  theme_light() +
+  labs(x = "Log2 Fold Change", y = "", fill = NULL, subtitle = "Differential abundance by BMI") +
+  theme(axis.text.y = element_markdown(size = 7),
+        legend.text = element_markdown(size = 7)) +
+  coord_cartesian(xlim = c(-3, 4))
+
+save(difftest_w_meta, file = "data/difftest_w_meta.rda")
+```
+
+
+## Biomarker Discovery
+
+Biomarker discovery aims to identify distinct markers or indicators that offer valuable insights into health and disease. These identified biomarkers provide crucial information regarding various aspects. Employing machine learning techniques, such as `random forest classification`, can further enhance the understanding by providing more in-depth insights, including:
+
+- Facilitating disease diagnosis
+- Monitoring and evaluating treatment responses
+- Improving comprehension of underlying biological processes
+- Enabling the prediction of outcomes.
+
+
+### Biomarkers using microbial package {#microbial-pkg-markers}
+Microbial R package performms Random Forest Classification then computes the Confusion Matrix as a means of evaluating the model's performance. 
+
+```{r biomarker_plot, fig.height=6, fig.width=6}
+library(microbial)
+
+biomarker(ps_raw, group = "nationality", ntree = 129) %>%
+plotmarker(level="Genus") +
+  coord_flip() +
+  theme_test() +
+  labs(x = NULL)
+
+```
+
+
+> More on biomarker discovery techniques in the next sections underMicrobial Machine Learning.
+

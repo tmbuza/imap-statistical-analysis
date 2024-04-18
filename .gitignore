@@ -4,6 +4,7 @@
 .Ruserdata
 .Rapp.history
 
+render*.rds
 data/*
 # Additional
 _bookdown_files/*

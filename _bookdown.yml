@@ -13,6 +13,7 @@ rmd_files:
   html:
     - index.Rmd
     - 00-preface.Rmd
+    - 01_statistical_analysis.Rmd
     - 99-appendix.Rmd
     - 999-references.Rmd
 # - 9999-footer.Rmd
