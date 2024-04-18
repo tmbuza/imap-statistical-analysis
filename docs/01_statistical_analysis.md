@@ -488,18 +488,15 @@ betatest(group = c("nationality", "bmi_group"), distance = "bray") %>%
 </table>
 
 
-##  Differential abundance Analysis {#diff_abund}
 
-Perform differential abundance analysis to identify features that show statistically significant differences in abundance between groups.
+## Differential Abundance Analysis with the difftest() Function {#diff_abund}
+The `difftest()` function from the microbial package serves as a robust solution for conducting differential abundance testing in microbiome data analysis. Its core objective is to identify taxa (such as bacteria and fungi) that demonstrate noteworthy differences in abundance levels across two or more groups of samples.
 
-- This analysis allow researchers to determine which features are associated with the studied conditions or factors.
-- Statistical tests, such as t-tests, Wilcoxon rank-sum tests, or analysis of variance (ANOVA) can help in assessing the significance of the differences and determine if they are beyond what would be expected by chance.
-
-### Testing with DESeq2 tool
 
 ```r
 library(tidyverse)
 library(ggtext)
+library(microbial)
 
 difftest <- difftest(ps_raw, group="nationality")
 

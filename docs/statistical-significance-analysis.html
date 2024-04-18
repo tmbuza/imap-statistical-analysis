@@ -645,20 +645,13 @@ NA
 </div>
 <div id="diff_abund" class="section level2" number="3.7">
 <h2>
-<span class="header-section-number">3.7</span> Differential abundance Analysis<a class="anchor" aria-label="anchor" href="#diff_abund"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.7</span> Differential Abundance Analysis with the difftest() Function<a class="anchor" aria-label="anchor" href="#diff_abund"><i class="fas fa-link"></i></a>
 </h2>
-<p>Perform differential abundance analysis to identify features that show statistically significant differences in abundance between groups.</p>
-<ul>
-<li>This analysis allow researchers to determine which features are associated with the studied conditions or factors.</li>
-<li>Statistical tests, such as t-tests, Wilcoxon rank-sum tests, or analysis of variance (ANOVA) can help in assessing the significance of the differences and determine if they are beyond what would be expected by chance.</li>
-</ul>
-<div id="testing-with-deseq2-tool" class="section level3" number="3.7.1">
-<h3>
-<span class="header-section-number">3.7.1</span> Testing with DESeq2 tool<a class="anchor" aria-label="anchor" href="#testing-with-deseq2-tool"><i class="fas fa-link"></i></a>
-</h3>
+<p>The <code><a href="https://rdrr.io/pkg/microbial/man/difftest.html">difftest()</a></code> function from the microbial package serves as a robust solution for conducting differential abundance testing in microbiome data analysis. Its core objective is to identify taxa (such as bacteria and fungi) that demonstrate noteworthy differences in abundance levels across two or more groups of samples.</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggtext/">ggtext</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">microbial</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">difftest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbial/man/difftest.html">difftest</a></span><span class="op">(</span><span class="va">ps_raw</span>, group<span class="op">=</span><span class="st">"nationality"</span><span class="op">)</span></span>
 <span></span>
@@ -898,8 +891,8 @@ Yes
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Log2 Fold Change"</span>, y <span class="op">=</span> <span class="st">""</span>, fill <span class="op">=</span> <span class="cn">NULL</span>, subtitle <span class="op">=</span> <span class="st">"Differential abundance by nationality"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ggtext/man/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>,</span>
-<span>        legend.text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ggtext/man/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>,</span>
+<span>        legend.text <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="figuresdiffabund_table-1.png" width="672"></div>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
@@ -908,13 +901,12 @@ Yes
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Log2 Fold Change"</span>, y <span class="op">=</span> <span class="st">""</span>, fill <span class="op">=</span> <span class="cn">NULL</span>, subtitle <span class="op">=</span> <span class="st">"Differential abundance by BMI"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ggtext/man/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>,</span>
-<span>        legend.text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ggtext/man/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>,</span>
+<span>        legend.text <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="figuresdiffabund_table-2.png" width="672"></div>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">difftest_w_meta</span>, file <span class="op">=</span> <span class="st">"data/difftest_w_meta.rda"</span><span class="op">)</span></span></code></pre></div>
-</div>
 </div>
 <div id="biomarker-discovery" class="section level2" number="3.8">
 <h2>
@@ -976,9 +968,7 @@ AFR   6  93  0.06060606</code></pre>
 <li><a class="nav-link" href="#permanova"><span class="header-section-number">3.4</span> PERMANOVA: Permutation Analysis of Variance</a></li>
 <li><a class="nav-link" href="#population-wise-multivariate-anova"><span class="header-section-number">3.5</span> Population-wise multivariate ANOVA</a></li>
 <li><a class="nav-link" href="#core-taxa-multivariate-anova"><span class="header-section-number">3.6</span> Core taxa multivariate ANOVA</a></li>
-<li>
-<a class="nav-link" href="#diff_abund"><span class="header-section-number">3.7</span> Differential abundance Analysis</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#testing-with-deseq2-tool"><span class="header-section-number">3.7.1</span> Testing with DESeq2 tool</a></li></ul>
-</li>
+<li><a class="nav-link" href="#diff_abund"><span class="header-section-number">3.7</span> Differential Abundance Analysis with the difftest() Function</a></li>
 <li>
 <a class="nav-link" href="#biomarker-discovery"><span class="header-section-number">3.8</span> Biomarker Discovery</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#microbial-pkg-markers"><span class="header-section-number">3.8.1</span> Biomarkers using microbial package</a></li></ul>
 </li>

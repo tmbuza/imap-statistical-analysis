@@ -7,7 +7,6 @@ taxa-prevalence-and-detection
 population-wise-multivariate-anova
 core-taxa-multivariate-anova
 diff_abund
-testing-with-deseq2-tool
 biomarker-discovery
 microbial-pkg-markers
 imap-github-repos
