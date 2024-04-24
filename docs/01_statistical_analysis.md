@@ -11,8 +11,11 @@ knitr::opts_chunk$set(
   message  =FALSE,
   warning  =FALSE,
   cache  =FALSE,
-  fig.path = "figures",
-  comment  =NA)
+  comment  =NA,
+  collapse =TRUE,
+  fig.path='./figures/',
+  fig.show='asis',
+  dev  ='png')
 ```
 
 
@@ -26,53 +29,26 @@ library(microbiome)
 library(microViz)
 
 cat("\nSaved RData objects\n\n")
-```
-
-```
 
 Saved RData objects
-```
-
-```r
 load("../imap-data-exploration/data/dataframe_objects.rda", verbose = T)
-```
-
-```
 Loading objects:
   df_GlobalPatterns
   df_dietswap
   df_caporaso
   df_kostic_crc
-```
-
-```r
 load("../imap-data-exploration/data/phyloseq_objects.rda", verbose = T)
-```
-
-```
 Loading objects:
   ps_GlobalPatterns
   ps_dietswap
   ps_caporaso
   ps_kostic_crc
-```
-
-```r
 load("../imap-data-exploration/data/phyloseq_extra_objects.rda", verbose = T)
-```
-
-```
 Loading objects:
   psextra_clr_dietswap
   psextra_id_dietswap
   psextra_log10p_dietswap
-```
-
-```r
 load("../imap-data-exploration/data/ps_transformed.rda", verbose = T)
-```
-
-```
 Loading objects:
   ps_asin
   ps_identity
@@ -84,13 +60,7 @@ Loading objects:
   ps_clr
   ps_shift
   ps_scale
-```
-
-```r
 load("../imap-data-exploration/data/bray_distances.rda", verbose = T)
-```
-
-```
 Loading objects:
   ps_asin_bray_dist
   ps_compositional_bray_dist
@@ -101,36 +71,18 @@ Loading objects:
   ps_clr_bray_dist
   ps_shift_bray_dist
   ps_scale_bray_dist
-```
-
-```r
 load("../imap-data-exploration/data/psextra_distances.rda", verbose = T)
-```
-
-```
 Loading objects:
   psextra_clr_asin_bray_dist
   psextra_id_asin_bray_dist
   psextra_log10p_asin_bray_dist
-```
-
-```r
 load("../imap-data-exploration/data/reduced_dimension.rda", verbose = T)
-```
-
-```
 Loading objects:
   pca_asin_bray_metrics
   mds_asin_bray_metrics
   pcoa_asin_bray_metrics
   tsne_asin_bray_metrics
-```
-
-```r
 load("../imap-data-exploration/data/phyloseq_raw_rel_psextra_df_objects.rda", verbose = T)
-```
-
-```
 Loading objects:
   ps_raw
   ps_rel
@@ -156,20 +108,13 @@ bray_perm <- psextra_log10p_asin_bray_dist %>%
   )
 
 perm_get(bray_perm) %>% as.data.frame()
-```
-
-```
            Df  SumOfSqs         R2        F Pr(>F)
 bmi_group   2 0.1233611 0.04544245 5.212833   0.01
 Residual  219 2.5913059 0.95455755       NA     NA
 Total     221 2.7146670 1.00000000       NA     NA
-```
 
-```r
+
 info_get(bray_perm)
-```
-
-```
 psExtra info:
 tax_agg = "Genus" tax_trans = "log10p" dist_method = "bray" 
 ```
@@ -210,23 +155,25 @@ plotLDA(group=c("lean", "overweight"), lda = 4.5) +
   labs(fill = NULL)
 ```
 
-<img src="figureslefse_LDA-1.png" width="672" />
+<img src="./figures/lefse_LDA-1.png" width="672" />
 
 ```r
+
 lda_bmi %>%
 plotLDA(group=c("lean", "obese"), lda = 4) +
   labs(fill = NULL)
 ```
 
-<img src="figureslefse_LDA-2.png" width="672" />
+<img src="./figures/lefse_LDA-2.png" width="672" />
 
 ```r
+
 lda_bmi %>%
 plotLDA(group=c("overweight", "obese"), lda = 4.5) +
   labs(fill = NULL)
 ```
 
-<img src="figureslefse_LDA-3.png" width="672" />
+<img src="./figures/lefse_LDA-3.png" width="672" />
 
 
 ## Taxa Prevalence and Detection
@@ -246,33 +193,12 @@ library(phyloseq)
 # Min and max sample and taxa sums: These values are useful when setting up some threshholds.
 
 cat("Minimum sample sums:", min(data.frame(sample_sums(ps_raw))), "\n\n")
-```
-
-```
 Minimum sample sums: 1776 
-```
-
-```r
 cat("Maximum sample sums:", max(data.frame(sample_sums(ps_raw))), "\n\n")
-```
-
-```
 Maximum sample sums: 28883 
-```
-
-```r
 cat("Minimum taxa sums:", min(data.frame(taxa_sums(ps_raw))), "\n\n")
-```
-
-```
 Minimum taxa sums: 0 
-```
-
-```r
 cat("Maximum taxa sums:", max(data.frame(taxa_sums(ps_raw))), "\n\n")
-```
-
-```
 Maximum taxa sums: 873314 
 ```
 
@@ -285,9 +211,6 @@ ps_prune_sample <- phyloseq::subset_samples(ps_raw, phyloseq::sample_sums(ps_raw
 ps_prune_taxa <- phyloseq::prune_taxa(phyloseq::taxa_sums(ps_prune_sample) > 0, ps_prune_sample)
 ps_core <- microbiome::core(ps_prune_taxa, detection  = 0.01, prevalence = 0.01)
 ps_core
-```
-
-```
 phyloseq-class experiment-level object
 otu_table()   OTU Table:         [ 116 taxa and 18 samples ]
 sample_data() Sample Data:       [ 18 samples by 8 sample variables ]
@@ -310,9 +233,6 @@ ps_prune_sample <- phyloseq::subset_samples(ps_raw, phyloseq::sample_sums(ps_raw
 ps_prune_taxa <- phyloseq::prune_taxa(phyloseq::taxa_sums(ps_prune_sample) > 0, ps_prune_sample)
 ps_core <- microbiome::core(ps_prune_taxa, detection  = 0.01, prevalence = 0.01)
 ps_core
-```
-
-```
 phyloseq-class experiment-level object
 otu_table()   OTU Table:         [ 119 taxa and 76 samples ]
 sample_data() Sample Data:       [ 76 samples by 8 sample variables ]
@@ -406,6 +326,8 @@ betatest(group = c("nationality", "bmi_group"), distance = "bray") %>%
 
 
 
+
+
 ## Core taxa multivariate ANOVA
 
 ```r
@@ -486,6 +408,8 @@ betatest(group = c("nationality", "bmi_group"), distance = "bray") %>%
   </tr>
 </tbody>
 </table>
+
+
 
 
 
@@ -594,7 +518,10 @@ difftest %>%
 </tbody>
 </table>
 
+
+
 ```r
+
 ### Differential abundance plot
 
 library(dplyr)
@@ -635,9 +562,10 @@ difftest_w_meta %>%
   coord_cartesian(xlim = c(-3, 4))
 ```
 
-<img src="figuresdiffabund_table-1.png" width="672" />
+<img src="./figures/diffabund_table-1.png" width="672" />
 
 ```r
+
 difftest_w_meta %>%
   ggplot(aes(y = reorder(taxon, log2foldchange), x = log2foldchange, fill = bmi_group)) +
   geom_col() +
@@ -648,9 +576,10 @@ difftest_w_meta %>%
   coord_cartesian(xlim = c(-3, 4))
 ```
 
-<img src="figuresdiffabund_table-2.png" width="672" />
+<img src="./figures/diffabund_table-2.png" width="672" />
 
 ```r
+
 save(difftest_w_meta, file = "data/difftest_w_meta.rda")
 ```
 
@@ -677,9 +606,6 @@ plotmarker(level="Genus") +
   coord_flip() +
   theme_test() +
   labs(x = NULL)
-```
-
-```
 
 Call:
  randomForest(formula = group ~ ., data = data, importance = TRUE,      proximity = TRUE, ntree = ntree) 
@@ -694,8 +620,9 @@ AAM 119   4  0.03252033
 AFR   6  93  0.06060606
 ```
 
-<img src="figuresbiomarker_plot-1.png" width="576" />
-
+<img src="./figures/biomarker_plot-1.png" width="576" />
 
 > More on biomarker discovery techniques in the next sections underMicrobial Machine Learning.
+
+
 

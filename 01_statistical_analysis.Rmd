@@ -10,8 +10,12 @@ knitr::opts_chunk$set(
   message  =FALSE,
   warning  =FALSE,
   cache  =FALSE,
-  fig.path = "figures",
-  comment  =NA)
+  comment  =NA,
+  collapse =TRUE,
+  fig.path='./figures/',
+  fig.show='asis',
+  dev  ='png')
+
   
 ```
 
@@ -271,6 +275,7 @@ plotmarker(level="Genus") +
 
 ```
 
-
 > More on biomarker discovery techniques in the next sections underMicrobial Machine Learning.
+
+
 

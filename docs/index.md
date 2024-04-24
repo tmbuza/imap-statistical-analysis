@@ -2,7 +2,7 @@
 title: "<big>IMAP:</big> Integrated Microbiome Analysis Pipelines"
 subtitle: "End-to-End Practical User Guides Using Integrated Approaches"
 date:
-- <b>2024-04-18</b>
+- <b>2024-04-24</b>
 author: Teresia Mrema-Buza
 site: bookdown::bookdown_site
 documentclass: book
@@ -42,13 +42,13 @@ description: |
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
 
-# <u>IMAP-STATS</u>: Statistical Analysis of Microbiome Data {-#statistical-analysis}
+# <u>IMAP-Part 09</u>: Statistical Analysis of Microbiome Data {-#statistical-analysis}
 
 <br>
 <br>
 ![](images/stats.png){width=100%}
 
 
-## Welcome to the Statistical Analysis Guide for Microbiome Studies {-}
+## Welcome to IMAP chapter 09 {-}
 Embarking on the exploration of microbiome statistical analysis, our guide aims to unravel the complexities of deciphering data pertaining to the structure and function of microbial communities. This analytical journey is instrumental in unraveling the nuanced relationships existing between microorganisms and their hosts or environments. Join us as we delve into the guide, navigating the essential steps to extract meaningful insights from the complex world of microbiomes.
 

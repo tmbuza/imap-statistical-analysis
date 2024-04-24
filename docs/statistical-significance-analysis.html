@@ -49,7 +49,7 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">IMAP-STATS: Statistical Analysis of Microbiome Data</a></li>
+<li><a class="" href="index.html">IMAP-Part 09: Statistical Analysis of Microbiome Data</a></li>
 <li class="book-part">STATISTICAL TESTING</li>
 <li><a class="" href="microbiome-statistical-analysis-steps.html"><span class="header-section-number">1</span> Microbiome Statistical Analysis Steps</a></li>
 <li class="book-part">STATISTICAL ANALYSIS</li>
@@ -77,110 +77,104 @@
 <span>  message  <span class="op">=</span><span class="cn">FALSE</span>,</span>
 <span>  warning  <span class="op">=</span><span class="cn">FALSE</span>,</span>
 <span>  cache  <span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span>  fig.path <span class="op">=</span> <span class="st">"figures"</span>,</span>
-<span>  comment  <span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load required packages</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://dx.plos.org/10.1371/journal.pone.0061217">phyloseq</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">microbial</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://microbiome.github.io/microbiome">microbiome</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://david-barnett.github.io/microViz">microViz</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"\nSaved RData objects\n\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>
-Saved RData objects</code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"../imap-data-exploration/data/dataframe_objects.rda"</span>, verbose <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Loading objects:
-  df_GlobalPatterns
-  df_dietswap
-  df_caporaso
-  df_kostic_crc</code></pre>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"../imap-data-exploration/data/phyloseq_objects.rda"</span>, verbose <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Loading objects:
-  ps_GlobalPatterns
-  ps_dietswap
-  ps_caporaso
-  ps_kostic_crc</code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"../imap-data-exploration/data/phyloseq_extra_objects.rda"</span>, verbose <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Loading objects:
-  psextra_clr_dietswap
-  psextra_id_dietswap
-  psextra_log10p_dietswap</code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"../imap-data-exploration/data/ps_transformed.rda"</span>, verbose <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Loading objects:
-  ps_asin
-  ps_identity
-  ps_compositional
-  ps_z_otu
-  ps_z_sample
-  ps_log10
-  ps_log10p
-  ps_clr
-  ps_shift
-  ps_scale</code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"../imap-data-exploration/data/bray_distances.rda"</span>, verbose <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Loading objects:
-  ps_asin_bray_dist
-  ps_compositional_bray_dist
-  ps_z_otu_bray_dist
-  ps_z_sample_bray_dist
-  ps_log10_bray_dist
-  ps_log10p_bray_dist
-  ps_clr_bray_dist
-  ps_shift_bray_dist
-  ps_scale_bray_dist</code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"../imap-data-exploration/data/psextra_distances.rda"</span>, verbose <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Loading objects:
-  psextra_clr_asin_bray_dist
-  psextra_id_asin_bray_dist
-  psextra_log10p_asin_bray_dist</code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"../imap-data-exploration/data/reduced_dimension.rda"</span>, verbose <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Loading objects:
-  pca_asin_bray_metrics
-  mds_asin_bray_metrics
-  pcoa_asin_bray_metrics
-  tsne_asin_bray_metrics</code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"../imap-data-exploration/data/phyloseq_raw_rel_psextra_df_objects.rda"</span>, verbose <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Loading objects:
-  ps_raw
-  ps_rel
-  psextra_raw
-  psextra_rel
-  ps_df</code></pre>
+<span>  comment  <span class="op">=</span><span class="cn">NA</span>,</span>
+<span>  collapse <span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>  fig.path<span class="op">=</span><span class="st">'./figures/'</span>,</span>
+<span>  fig.show<span class="op">=</span><span class="st">'asis'</span>,</span>
+<span>  dev  <span class="op">=</span><span class="st">'png'</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="statistical-significance-analysis.html#cb2-1" tabindex="-1"></a><span class="co"># Load required packages</span></span>
+<span id="cb2-2"><a href="statistical-significance-analysis.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(phyloseq)</span>
+<span id="cb2-3"><a href="statistical-significance-analysis.html#cb2-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-4"><a href="statistical-significance-analysis.html#cb2-4" tabindex="-1"></a><span class="fu">library</span>(microbial)</span>
+<span id="cb2-5"><a href="statistical-significance-analysis.html#cb2-5" tabindex="-1"></a><span class="fu">library</span>(microbiome)</span>
+<span id="cb2-6"><a href="statistical-significance-analysis.html#cb2-6" tabindex="-1"></a><span class="fu">library</span>(microViz)</span>
+<span id="cb2-7"><a href="statistical-significance-analysis.html#cb2-7" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="statistical-significance-analysis.html#cb2-8" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Saved RData objects</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb2-9"><a href="statistical-significance-analysis.html#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="statistical-significance-analysis.html#cb2-10" tabindex="-1"></a>Saved RData objects</span>
+<span id="cb2-11"><a href="statistical-significance-analysis.html#cb2-11" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../imap-data-exploration/data/dataframe_objects.rda"</span>, <span class="at">verbose =</span> T)</span>
+<span id="cb2-12"><a href="statistical-significance-analysis.html#cb2-12" tabindex="-1"></a>Loading objects<span class="sc">:</span></span>
+<span id="cb2-13"><a href="statistical-significance-analysis.html#cb2-13" tabindex="-1"></a>  df_GlobalPatterns</span>
+<span id="cb2-14"><a href="statistical-significance-analysis.html#cb2-14" tabindex="-1"></a>  df_dietswap</span>
+<span id="cb2-15"><a href="statistical-significance-analysis.html#cb2-15" tabindex="-1"></a>  df_caporaso</span>
+<span id="cb2-16"><a href="statistical-significance-analysis.html#cb2-16" tabindex="-1"></a>  df_kostic_crc</span>
+<span id="cb2-17"><a href="statistical-significance-analysis.html#cb2-17" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../imap-data-exploration/data/phyloseq_objects.rda"</span>, <span class="at">verbose =</span> T)</span>
+<span id="cb2-18"><a href="statistical-significance-analysis.html#cb2-18" tabindex="-1"></a>Loading objects<span class="sc">:</span></span>
+<span id="cb2-19"><a href="statistical-significance-analysis.html#cb2-19" tabindex="-1"></a>  ps_GlobalPatterns</span>
+<span id="cb2-20"><a href="statistical-significance-analysis.html#cb2-20" tabindex="-1"></a>  ps_dietswap</span>
+<span id="cb2-21"><a href="statistical-significance-analysis.html#cb2-21" tabindex="-1"></a>  ps_caporaso</span>
+<span id="cb2-22"><a href="statistical-significance-analysis.html#cb2-22" tabindex="-1"></a>  ps_kostic_crc</span>
+<span id="cb2-23"><a href="statistical-significance-analysis.html#cb2-23" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../imap-data-exploration/data/phyloseq_extra_objects.rda"</span>, <span class="at">verbose =</span> T)</span>
+<span id="cb2-24"><a href="statistical-significance-analysis.html#cb2-24" tabindex="-1"></a>Loading objects<span class="sc">:</span></span>
+<span id="cb2-25"><a href="statistical-significance-analysis.html#cb2-25" tabindex="-1"></a>  psextra_clr_dietswap</span>
+<span id="cb2-26"><a href="statistical-significance-analysis.html#cb2-26" tabindex="-1"></a>  psextra_id_dietswap</span>
+<span id="cb2-27"><a href="statistical-significance-analysis.html#cb2-27" tabindex="-1"></a>  psextra_log10p_dietswap</span>
+<span id="cb2-28"><a href="statistical-significance-analysis.html#cb2-28" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../imap-data-exploration/data/ps_transformed.rda"</span>, <span class="at">verbose =</span> T)</span>
+<span id="cb2-29"><a href="statistical-significance-analysis.html#cb2-29" tabindex="-1"></a>Loading objects<span class="sc">:</span></span>
+<span id="cb2-30"><a href="statistical-significance-analysis.html#cb2-30" tabindex="-1"></a>  ps_asin</span>
+<span id="cb2-31"><a href="statistical-significance-analysis.html#cb2-31" tabindex="-1"></a>  ps_identity</span>
+<span id="cb2-32"><a href="statistical-significance-analysis.html#cb2-32" tabindex="-1"></a>  ps_compositional</span>
+<span id="cb2-33"><a href="statistical-significance-analysis.html#cb2-33" tabindex="-1"></a>  ps_z_otu</span>
+<span id="cb2-34"><a href="statistical-significance-analysis.html#cb2-34" tabindex="-1"></a>  ps_z_sample</span>
+<span id="cb2-35"><a href="statistical-significance-analysis.html#cb2-35" tabindex="-1"></a>  ps_log10</span>
+<span id="cb2-36"><a href="statistical-significance-analysis.html#cb2-36" tabindex="-1"></a>  ps_log10p</span>
+<span id="cb2-37"><a href="statistical-significance-analysis.html#cb2-37" tabindex="-1"></a>  ps_clr</span>
+<span id="cb2-38"><a href="statistical-significance-analysis.html#cb2-38" tabindex="-1"></a>  ps_shift</span>
+<span id="cb2-39"><a href="statistical-significance-analysis.html#cb2-39" tabindex="-1"></a>  ps_scale</span>
+<span id="cb2-40"><a href="statistical-significance-analysis.html#cb2-40" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../imap-data-exploration/data/bray_distances.rda"</span>, <span class="at">verbose =</span> T)</span>
+<span id="cb2-41"><a href="statistical-significance-analysis.html#cb2-41" tabindex="-1"></a>Loading objects<span class="sc">:</span></span>
+<span id="cb2-42"><a href="statistical-significance-analysis.html#cb2-42" tabindex="-1"></a>  ps_asin_bray_dist</span>
+<span id="cb2-43"><a href="statistical-significance-analysis.html#cb2-43" tabindex="-1"></a>  ps_compositional_bray_dist</span>
+<span id="cb2-44"><a href="statistical-significance-analysis.html#cb2-44" tabindex="-1"></a>  ps_z_otu_bray_dist</span>
+<span id="cb2-45"><a href="statistical-significance-analysis.html#cb2-45" tabindex="-1"></a>  ps_z_sample_bray_dist</span>
+<span id="cb2-46"><a href="statistical-significance-analysis.html#cb2-46" tabindex="-1"></a>  ps_log10_bray_dist</span>
+<span id="cb2-47"><a href="statistical-significance-analysis.html#cb2-47" tabindex="-1"></a>  ps_log10p_bray_dist</span>
+<span id="cb2-48"><a href="statistical-significance-analysis.html#cb2-48" tabindex="-1"></a>  ps_clr_bray_dist</span>
+<span id="cb2-49"><a href="statistical-significance-analysis.html#cb2-49" tabindex="-1"></a>  ps_shift_bray_dist</span>
+<span id="cb2-50"><a href="statistical-significance-analysis.html#cb2-50" tabindex="-1"></a>  ps_scale_bray_dist</span>
+<span id="cb2-51"><a href="statistical-significance-analysis.html#cb2-51" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../imap-data-exploration/data/psextra_distances.rda"</span>, <span class="at">verbose =</span> T)</span>
+<span id="cb2-52"><a href="statistical-significance-analysis.html#cb2-52" tabindex="-1"></a>Loading objects<span class="sc">:</span></span>
+<span id="cb2-53"><a href="statistical-significance-analysis.html#cb2-53" tabindex="-1"></a>  psextra_clr_asin_bray_dist</span>
+<span id="cb2-54"><a href="statistical-significance-analysis.html#cb2-54" tabindex="-1"></a>  psextra_id_asin_bray_dist</span>
+<span id="cb2-55"><a href="statistical-significance-analysis.html#cb2-55" tabindex="-1"></a>  psextra_log10p_asin_bray_dist</span>
+<span id="cb2-56"><a href="statistical-significance-analysis.html#cb2-56" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../imap-data-exploration/data/reduced_dimension.rda"</span>, <span class="at">verbose =</span> T)</span>
+<span id="cb2-57"><a href="statistical-significance-analysis.html#cb2-57" tabindex="-1"></a>Loading objects<span class="sc">:</span></span>
+<span id="cb2-58"><a href="statistical-significance-analysis.html#cb2-58" tabindex="-1"></a>  pca_asin_bray_metrics</span>
+<span id="cb2-59"><a href="statistical-significance-analysis.html#cb2-59" tabindex="-1"></a>  mds_asin_bray_metrics</span>
+<span id="cb2-60"><a href="statistical-significance-analysis.html#cb2-60" tabindex="-1"></a>  pcoa_asin_bray_metrics</span>
+<span id="cb2-61"><a href="statistical-significance-analysis.html#cb2-61" tabindex="-1"></a>  tsne_asin_bray_metrics</span>
+<span id="cb2-62"><a href="statistical-significance-analysis.html#cb2-62" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../imap-data-exploration/data/phyloseq_raw_rel_psextra_df_objects.rda"</span>, <span class="at">verbose =</span> T)</span>
+<span id="cb2-63"><a href="statistical-significance-analysis.html#cb2-63" tabindex="-1"></a>Loading objects<span class="sc">:</span></span>
+<span id="cb2-64"><a href="statistical-significance-analysis.html#cb2-64" tabindex="-1"></a>  ps_raw</span>
+<span id="cb2-65"><a href="statistical-significance-analysis.html#cb2-65" tabindex="-1"></a>  ps_rel</span>
+<span id="cb2-66"><a href="statistical-significance-analysis.html#cb2-66" tabindex="-1"></a>  psextra_raw</span>
+<span id="cb2-67"><a href="statistical-significance-analysis.html#cb2-67" tabindex="-1"></a>  psextra_rel</span>
+<span id="cb2-68"><a href="statistical-significance-analysis.html#cb2-68" tabindex="-1"></a>  ps_df</span></code></pre></div>
 <div id="permanova" class="section level2" number="3.1">
 <h2>
 <span class="header-section-number">3.1</span> Permutational Multivariate Analysis of Variance<a class="anchor" aria-label="anchor" href="#permanova"><i class="fas fa-link"></i></a>
 </h2>
 <p>PERMANOVA (Permutational Multivariate Analysis of Variance) is a statistical test used to assess the significance of differences between groups of microbial communities. Particularly suited for analyzing multivariate data like microbiome composition, PERMANOVA offers valuable insights into how different experimental conditions or treatments impact microbial community structure.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://david-barnett.github.io/microViz">microViz</a></span><span class="op">)</span> </span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> </span>
-<span></span>
-<span><span class="va">bray_perm</span> <span class="op">&lt;-</span> <span class="va">psextra_log10p_asin_bray_dist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://david-barnett.github.io/microViz/reference/dist_permanova.html">dist_permanova</a></span><span class="op">(</span></span>
-<span>    seed <span class="op">=</span> <span class="fl">1234</span>, <span class="co"># for set.seed to ensure reproducibility of random process</span></span>
-<span>    n_processes <span class="op">=</span> <span class="fl">1</span>, n_perms <span class="op">=</span> <span class="fl">99</span>, <span class="co"># you should use at least 999!</span></span>
-<span>    variables <span class="op">=</span> <span class="st">"bmi_group"</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://david-barnett.github.io/microViz/reference/psExtra-accessors.html">perm_get</a></span><span class="op">(</span><span class="va">bray_perm</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>           Df  SumOfSqs         R2        F Pr(&gt;F)
-bmi_group   2 0.1233611 0.04544245 5.212833   0.01
-Residual  219 2.5913059 0.95455755       NA     NA
-Total     221 2.7146670 1.00000000       NA     NA</code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://david-barnett.github.io/microViz/reference/psExtra-accessors.html">info_get</a></span><span class="op">(</span><span class="va">bray_perm</span><span class="op">)</span></span></code></pre></div>
-<pre><code>psExtra info:
-tax_agg = "Genus" tax_trans = "log10p" dist_method = "bray" </code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="statistical-significance-analysis.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(microViz) </span>
+<span id="cb3-2"><a href="statistical-significance-analysis.html#cb3-2" tabindex="-1"></a><span class="fu">library</span>(dplyr) </span>
+<span id="cb3-3"><a href="statistical-significance-analysis.html#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="statistical-significance-analysis.html#cb3-4" tabindex="-1"></a>bray_perm <span class="ot">&lt;-</span> psextra_log10p_asin_bray_dist <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="statistical-significance-analysis.html#cb3-5" tabindex="-1"></a>  <span class="fu">dist_permanova</span>(</span>
+<span id="cb3-6"><a href="statistical-significance-analysis.html#cb3-6" tabindex="-1"></a>    <span class="at">seed =</span> <span class="dv">1234</span>, <span class="co"># for set.seed to ensure reproducibility of random process</span></span>
+<span id="cb3-7"><a href="statistical-significance-analysis.html#cb3-7" tabindex="-1"></a>    <span class="at">n_processes =</span> <span class="dv">1</span>, <span class="at">n_perms =</span> <span class="dv">99</span>, <span class="co"># you should use at least 999!</span></span>
+<span id="cb3-8"><a href="statistical-significance-analysis.html#cb3-8" tabindex="-1"></a>    <span class="at">variables =</span> <span class="st">"bmi_group"</span></span>
+<span id="cb3-9"><a href="statistical-significance-analysis.html#cb3-9" tabindex="-1"></a>  )</span>
+<span id="cb3-10"><a href="statistical-significance-analysis.html#cb3-10" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="statistical-significance-analysis.html#cb3-11" tabindex="-1"></a><span class="fu">perm_get</span>(bray_perm) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb3-12"><a href="statistical-significance-analysis.html#cb3-12" tabindex="-1"></a>           Df  SumOfSqs         R2        F <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)</span>
+<span id="cb3-13"><a href="statistical-significance-analysis.html#cb3-13" tabindex="-1"></a>bmi_group   <span class="dv">2</span> <span class="fl">0.1233611</span> <span class="fl">0.04544245</span> <span class="fl">5.212833</span>   <span class="fl">0.01</span></span>
+<span id="cb3-14"><a href="statistical-significance-analysis.html#cb3-14" tabindex="-1"></a>Residual  <span class="dv">219</span> <span class="fl">2.5913059</span> <span class="fl">0.95455755</span>       <span class="cn">NA</span>     <span class="cn">NA</span></span>
+<span id="cb3-15"><a href="statistical-significance-analysis.html#cb3-15" tabindex="-1"></a>Total     <span class="dv">221</span> <span class="fl">2.7146670</span> <span class="fl">1.00000000</span>       <span class="cn">NA</span>     <span class="cn">NA</span></span>
+<span id="cb3-16"><a href="statistical-significance-analysis.html#cb3-16" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="statistical-significance-analysis.html#cb3-17" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="statistical-significance-analysis.html#cb3-18" tabindex="-1"></a><span class="fu">info_get</span>(bray_perm)</span>
+<span id="cb3-19"><a href="statistical-significance-analysis.html#cb3-19" tabindex="-1"></a>psExtra info<span class="sc">:</span></span>
+<span id="cb3-20"><a href="statistical-significance-analysis.html#cb3-20" tabindex="-1"></a>tax_agg <span class="ot">=</span> <span class="st">"Genus"</span> tax_trans <span class="ot">=</span> <span class="st">"log10p"</span> dist_method <span class="ot">=</span> <span class="st">"bray"</span> </span></code></pre></div>
 </div>
 <div id="lda-effect-size" class="section level2" number="3.2">
 <h2>
@@ -191,7 +185,7 @@ tax_agg = "Genus" tax_trans = "log10p" dist_method = "bray" </code></pre>
 <li>LEfSe combines LDA (Linear Discriminant Analysis) and effect size estimation to identify microbial taxa or features that are most likely to explain differences between groups.</li>
 </ul>
 <p><strong>LDA plot</strong></p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span><span class="op">}</span></span>
 <span></span>
 <span><span class="co"># source("_microbial_plot.R")</span></span>
@@ -213,17 +207,19 @@ tax_agg = "Genus" tax_trans = "log10p" dist_method = "bray" </code></pre>
 <span><span class="va">lda_bmi</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/microbial/man/plotLDA.html">plotLDA</a></span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lean"</span>, <span class="st">"overweight"</span><span class="op">)</span>, lda <span class="op">=</span> <span class="fl">4.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="figureslefse_LDA-1.png" width="672"></div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lda_bmi</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="inline-figure"><img src="figures/lefse_LDA-1.png" width="672"></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">lda_bmi</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/microbial/man/plotLDA.html">plotLDA</a></span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lean"</span>, <span class="st">"obese"</span><span class="op">)</span>, lda <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="figureslefse_LDA-2.png" width="672"></div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lda_bmi</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="inline-figure"><img src="figures/lefse_LDA-2.png" width="672"></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">lda_bmi</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/microbial/man/plotLDA.html">plotLDA</a></span><span class="op">(</span>group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"overweight"</span>, <span class="st">"obese"</span><span class="op">)</span>, lda <span class="op">=</span> <span class="fl">4.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="figureslefse_LDA-3.png" width="672"></div>
+<div class="inline-figure"><img src="figures/lefse_LDA-3.png" width="672"></div>
 </div>
 <div id="taxa-prevalence-and-detection" class="section level2" number="3.3">
 <h2>
@@ -236,70 +232,64 @@ tax_agg = "Genus" tax_trans = "log10p" dist_method = "bray" </code></pre>
 <li>Low prevalence suggests that the taxon is more sporadic or rare.</li>
 <li>Analyzing taxa prevalence can provide insights into the distribution of different microbial taxa.</li>
 </ul>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://dx.plos.org/10.1371/journal.pone.0061217">phyloseq</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Min and max sample and taxa sums: These values are useful when setting up some threshholds.</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Minimum sample sums:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_sums.html">sample_sums</a></span><span class="op">(</span><span class="va">ps_raw</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, <span class="st">"\n\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Minimum sample sums: 1776 </code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Maximum sample sums:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_sums.html">sample_sums</a></span><span class="op">(</span><span class="va">ps_raw</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, <span class="st">"\n\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Maximum sample sums: 28883 </code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Minimum taxa sums:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/taxa_sums.html">taxa_sums</a></span><span class="op">(</span><span class="va">ps_raw</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, <span class="st">"\n\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Minimum taxa sums: 0 </code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Maximum taxa sums:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/taxa_sums.html">taxa_sums</a></span><span class="op">(</span><span class="va">ps_raw</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, <span class="st">"\n\n"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Maximum taxa sums: 873314 </code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="statistical-significance-analysis.html#cb7-1" tabindex="-1"></a><span class="fu">library</span>(phyloseq)</span>
+<span id="cb7-2"><a href="statistical-significance-analysis.html#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="statistical-significance-analysis.html#cb7-3" tabindex="-1"></a><span class="co"># Min and max sample and taxa sums: These values are useful when setting up some threshholds.</span></span>
+<span id="cb7-4"><a href="statistical-significance-analysis.html#cb7-4" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="statistical-significance-analysis.html#cb7-5" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Minimum sample sums:"</span>, <span class="fu">min</span>(<span class="fu">data.frame</span>(<span class="fu">sample_sums</span>(ps_raw))), <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb7-6"><a href="statistical-significance-analysis.html#cb7-6" tabindex="-1"></a>Minimum sample sums<span class="sc">:</span> <span class="dv">1776</span> </span>
+<span id="cb7-7"><a href="statistical-significance-analysis.html#cb7-7" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Maximum sample sums:"</span>, <span class="fu">max</span>(<span class="fu">data.frame</span>(<span class="fu">sample_sums</span>(ps_raw))), <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb7-8"><a href="statistical-significance-analysis.html#cb7-8" tabindex="-1"></a>Maximum sample sums<span class="sc">:</span> <span class="dv">28883</span> </span>
+<span id="cb7-9"><a href="statistical-significance-analysis.html#cb7-9" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Minimum taxa sums:"</span>, <span class="fu">min</span>(<span class="fu">data.frame</span>(<span class="fu">taxa_sums</span>(ps_raw))), <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb7-10"><a href="statistical-significance-analysis.html#cb7-10" tabindex="-1"></a>Minimum taxa sums<span class="sc">:</span> <span class="dv">0</span> </span>
+<span id="cb7-11"><a href="statistical-significance-analysis.html#cb7-11" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Maximum taxa sums:"</span>, <span class="fu">max</span>(<span class="fu">data.frame</span>(<span class="fu">taxa_sums</span>(ps_raw))), <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb7-12"><a href="statistical-significance-analysis.html#cb7-12" tabindex="-1"></a>Maximum taxa sums<span class="sc">:</span> <span class="dv">873314</span> </span></code></pre></div>
 <p><strong>Subsetting to core taxa</strong></p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ps_prune_sample</span> <span class="op">&lt;-</span> <span class="fu">phyloseq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html">subset_samples</a></span><span class="op">(</span><span class="va">ps_raw</span>, <span class="fu">phyloseq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_sums.html">sample_sums</a></span><span class="op">(</span><span class="va">ps_raw</span><span class="op">)</span> <span class="op">&gt;</span><span class="fl">20000</span><span class="op">)</span></span>
-<span><span class="va">ps_prune_taxa</span> <span class="op">&lt;-</span> <span class="fu">phyloseq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/prune_taxa-methods.html">prune_taxa</a></span><span class="op">(</span><span class="fu">phyloseq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/taxa_sums.html">taxa_sums</a></span><span class="op">(</span><span class="va">ps_prune_sample</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="va">ps_prune_sample</span><span class="op">)</span></span>
-<span><span class="va">ps_core</span> <span class="op">&lt;-</span> <span class="fu">microbiome</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbiome/man/core.html">core</a></span><span class="op">(</span><span class="va">ps_prune_taxa</span>, detection  <span class="op">=</span> <span class="fl">0.01</span>, prevalence <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span>
-<span><span class="va">ps_core</span></span></code></pre></div>
-<pre><code>phyloseq-class experiment-level object
-otu_table()   OTU Table:         [ 116 taxa and 18 samples ]
-sample_data() Sample Data:       [ 18 samples by 8 sample variables ]
-tax_table()   Taxonomy Table:    [ 116 taxa by 3 taxonomic ranks ]
-phy_tree()    Phylogenetic Tree: [ 116 tips and 115 internal nodes ]</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="statistical-significance-analysis.html#cb8-1" tabindex="-1"></a>ps_prune_sample <span class="ot">&lt;-</span> phyloseq<span class="sc">::</span><span class="fu">subset_samples</span>(ps_raw, phyloseq<span class="sc">::</span><span class="fu">sample_sums</span>(ps_raw) <span class="sc">&gt;</span><span class="dv">20000</span>)</span>
+<span id="cb8-2"><a href="statistical-significance-analysis.html#cb8-2" tabindex="-1"></a>ps_prune_taxa <span class="ot">&lt;-</span> phyloseq<span class="sc">::</span><span class="fu">prune_taxa</span>(phyloseq<span class="sc">::</span><span class="fu">taxa_sums</span>(ps_prune_sample) <span class="sc">&gt;</span> <span class="dv">0</span>, ps_prune_sample)</span>
+<span id="cb8-3"><a href="statistical-significance-analysis.html#cb8-3" tabindex="-1"></a>ps_core <span class="ot">&lt;-</span> microbiome<span class="sc">::</span><span class="fu">core</span>(ps_prune_taxa, <span class="at">detection  =</span> <span class="fl">0.01</span>, <span class="at">prevalence =</span> <span class="fl">0.01</span>)</span>
+<span id="cb8-4"><a href="statistical-significance-analysis.html#cb8-4" tabindex="-1"></a>ps_core</span>
+<span id="cb8-5"><a href="statistical-significance-analysis.html#cb8-5" tabindex="-1"></a>phyloseq<span class="sc">-</span>class experiment<span class="sc">-</span>level object</span>
+<span id="cb8-6"><a href="statistical-significance-analysis.html#cb8-6" tabindex="-1"></a><span class="fu">otu_table</span>()   OTU Table<span class="sc">:</span>         [ <span class="dv">116</span> taxa and <span class="dv">18</span> samples ]</span>
+<span id="cb8-7"><a href="statistical-significance-analysis.html#cb8-7" tabindex="-1"></a><span class="fu">sample_data</span>() Sample Data<span class="sc">:</span>       [ <span class="dv">18</span> samples by <span class="dv">8</span> sample variables ]</span>
+<span id="cb8-8"><a href="statistical-significance-analysis.html#cb8-8" tabindex="-1"></a><span class="fu">tax_table</span>()   Taxonomy Table<span class="sc">:</span>    [ <span class="dv">116</span> taxa by <span class="dv">3</span> taxonomic ranks ]</span>
+<span id="cb8-9"><a href="statistical-significance-analysis.html#cb8-9" tabindex="-1"></a><span class="fu">phy_tree</span>()    Phylogenetic Tree<span class="sc">:</span> [ <span class="dv">116</span> tips and <span class="dv">115</span> internal nodes ]</span></code></pre></div>
 </div>
 <div id="permanova" class="section level2" number="3.4">
 <h2>
 <span class="header-section-number">3.4</span> PERMANOVA: Permutation Analysis of Variance<a class="anchor" aria-label="anchor" href="#permanova"><i class="fas fa-link"></i></a>
 </h2>
 <p>Use PERMANOVA to assess the significance of differences between groups based on multivariate data. PERMANOVA is a flexible and robust method that accounts for various data characteristics and can provide valuable insights into the factors driving variation in the data.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Permanova</span></span>
-<span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ps_prune_sample</span> <span class="op">&lt;-</span> <span class="fu">phyloseq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/subset_samples-methods.html">subset_samples</a></span><span class="op">(</span><span class="va">ps_raw</span>, <span class="fu">phyloseq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/sample_sums.html">sample_sums</a></span><span class="op">(</span><span class="va">ps_raw</span><span class="op">)</span> <span class="op">&gt;</span><span class="fl">15000</span><span class="op">)</span></span>
-<span><span class="va">ps_prune_taxa</span> <span class="op">&lt;-</span> <span class="fu">phyloseq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/prune_taxa-methods.html">prune_taxa</a></span><span class="op">(</span><span class="fu">phyloseq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phyloseq/man/taxa_sums.html">taxa_sums</a></span><span class="op">(</span><span class="va">ps_prune_sample</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="va">ps_prune_sample</span><span class="op">)</span></span>
-<span><span class="va">ps_core</span> <span class="op">&lt;-</span> <span class="fu">microbiome</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbiome/man/core.html">core</a></span><span class="op">(</span><span class="va">ps_prune_taxa</span>, detection  <span class="op">=</span> <span class="fl">0.01</span>, prevalence <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span>
-<span><span class="va">ps_core</span></span></code></pre></div>
-<pre><code>phyloseq-class experiment-level object
-otu_table()   OTU Table:         [ 119 taxa and 76 samples ]
-sample_data() Sample Data:       [ 76 samples by 8 sample variables ]
-tax_table()   Taxonomy Table:    [ 119 taxa by 3 taxonomic ranks ]
-phy_tree()    Phylogenetic Tree: [ 119 tips and 118 internal nodes ]</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="statistical-significance-analysis.html#cb9-1" tabindex="-1"></a><span class="do">## Permanova</span></span>
+<span id="cb9-2"><a href="statistical-significance-analysis.html#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="statistical-significance-analysis.html#cb9-3" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb9-4"><a href="statistical-significance-analysis.html#cb9-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-5"><a href="statistical-significance-analysis.html#cb9-5" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb9-6"><a href="statistical-significance-analysis.html#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="statistical-significance-analysis.html#cb9-7" tabindex="-1"></a>ps_prune_sample <span class="ot">&lt;-</span> phyloseq<span class="sc">::</span><span class="fu">subset_samples</span>(ps_raw, phyloseq<span class="sc">::</span><span class="fu">sample_sums</span>(ps_raw) <span class="sc">&gt;</span><span class="dv">15000</span>)</span>
+<span id="cb9-8"><a href="statistical-significance-analysis.html#cb9-8" tabindex="-1"></a>ps_prune_taxa <span class="ot">&lt;-</span> phyloseq<span class="sc">::</span><span class="fu">prune_taxa</span>(phyloseq<span class="sc">::</span><span class="fu">taxa_sums</span>(ps_prune_sample) <span class="sc">&gt;</span> <span class="dv">0</span>, ps_prune_sample)</span>
+<span id="cb9-9"><a href="statistical-significance-analysis.html#cb9-9" tabindex="-1"></a>ps_core <span class="ot">&lt;-</span> microbiome<span class="sc">::</span><span class="fu">core</span>(ps_prune_taxa, <span class="at">detection  =</span> <span class="fl">0.01</span>, <span class="at">prevalence =</span> <span class="fl">0.01</span>)</span>
+<span id="cb9-10"><a href="statistical-significance-analysis.html#cb9-10" tabindex="-1"></a>ps_core</span>
+<span id="cb9-11"><a href="statistical-significance-analysis.html#cb9-11" tabindex="-1"></a>phyloseq<span class="sc">-</span>class experiment<span class="sc">-</span>level object</span>
+<span id="cb9-12"><a href="statistical-significance-analysis.html#cb9-12" tabindex="-1"></a><span class="fu">otu_table</span>()   OTU Table<span class="sc">:</span>         [ <span class="dv">119</span> taxa and <span class="dv">76</span> samples ]</span>
+<span id="cb9-13"><a href="statistical-significance-analysis.html#cb9-13" tabindex="-1"></a><span class="fu">sample_data</span>() Sample Data<span class="sc">:</span>       [ <span class="dv">76</span> samples by <span class="dv">8</span> sample variables ]</span>
+<span id="cb9-14"><a href="statistical-significance-analysis.html#cb9-14" tabindex="-1"></a><span class="fu">tax_table</span>()   Taxonomy Table<span class="sc">:</span>    [ <span class="dv">119</span> taxa by <span class="dv">3</span> taxonomic ranks ]</span>
+<span id="cb9-15"><a href="statistical-significance-analysis.html#cb9-15" tabindex="-1"></a><span class="fu">phy_tree</span>()    Phylogenetic Tree<span class="sc">:</span> [ <span class="dv">119</span> tips and <span class="dv">118</span> internal nodes ]</span></code></pre></div>
 </div>
 <div id="population-wise-multivariate-anova" class="section level2" number="3.5">
 <h2>
 <span class="header-section-number">3.5</span> Population-wise multivariate ANOVA<a class="anchor" aria-label="anchor" href="#population-wise-multivariate-anova"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan">vegan</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">microbial</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ps_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/microbial/man/betatest.html">betatest</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"nationality"</span>, <span class="st">"bmi_group"</span><span class="op">)</span>, distance <span class="op">=</span> <span class="st">"bray"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://magrittr.tidyverse.org/reference/aliases.html">set_colnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Group"</span>, <span class="st">"Df"</span>, <span class="st">"SumsOfSqs"</span>, <span class="st">"MeanSqs"</span>, <span class="st">"FModel"</span>, <span class="st">"R2"</span>, <span class="st">"Pvalue"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"html"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="st">"basic"</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"float_left"</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/column_spec.html">column_spec</a></span><span class="op">(</span><span class="fl">7</span>, bold <span class="op">=</span> <span class="cn">TRUE</span>, color <span class="op">=</span> <span class="st">"black"</span>, background <span class="op">=</span> <span class="st">"#eeeeee"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu">set_colnames</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Group"</span>, <span class="st">"Df"</span>, <span class="st">"SumsOfSqs"</span>, <span class="st">"MeanSqs"</span>, <span class="st">"FModel"</span>, <span class="st">"R2"</span>, <span class="st">"Pvalue"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">kable</span><span class="op">(</span>format <span class="op">=</span> <span class="st">"html"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="st">"basic"</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"float_left"</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">column_spec</span><span class="op">(</span><span class="fl">7</span>, bold <span class="op">=</span> <span class="cn">TRUE</span>, color <span class="op">=</span> <span class="st">"black"</span>, background <span class="op">=</span> <span class="st">"#eeeeee"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table" style="width: auto !important; float: left; margin-right: 10px;">
 <thead><tr>
 <th style="text-align:left;">
@@ -470,13 +460,13 @@ NA
 <h2>
 <span class="header-section-number">3.6</span> Core taxa multivariate ANOVA<a class="anchor" aria-label="anchor" href="#core-taxa-multivariate-anova"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ps_core</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/microbial/man/betatest.html">betatest</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"nationality"</span>, <span class="st">"bmi_group"</span><span class="op">)</span>, distance <span class="op">=</span> <span class="st">"bray"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://magrittr.tidyverse.org/reference/aliases.html">set_colnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Group"</span>, <span class="st">"Df"</span>, <span class="st">"SumsOfSqs"</span>, <span class="st">"MeanSqs"</span>, <span class="st">"FModel"</span>, <span class="st">"R2"</span>, <span class="st">"Pvalue"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"html"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="st">"basic"</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"float_left"</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/column_spec.html">column_spec</a></span><span class="op">(</span><span class="fl">7</span>, bold <span class="op">=</span> <span class="cn">TRUE</span>, color <span class="op">=</span> <span class="st">"black"</span>, background <span class="op">=</span> <span class="st">"#eeeeee"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu">set_colnames</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Group"</span>, <span class="st">"Df"</span>, <span class="st">"SumsOfSqs"</span>, <span class="st">"MeanSqs"</span>, <span class="st">"FModel"</span>, <span class="st">"R2"</span>, <span class="st">"Pvalue"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">kable</span><span class="op">(</span>format <span class="op">=</span> <span class="st">"html"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="st">"basic"</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"float_left"</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">column_spec</span><span class="op">(</span><span class="fl">7</span>, bold <span class="op">=</span> <span class="cn">TRUE</span>, color <span class="op">=</span> <span class="st">"black"</span>, background <span class="op">=</span> <span class="st">"#eeeeee"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table" style="width: auto !important; float: left; margin-right: 10px;">
 <thead><tr>
 <th style="text-align:left;">
@@ -648,7 +638,7 @@ NA
 <span class="header-section-number">3.7</span> Differential Abundance Analysis with the difftest() Function<a class="anchor" aria-label="anchor" href="#diff_abund"><i class="fas fa-link"></i></a>
 </h2>
 <p>The <code><a href="https://rdrr.io/pkg/microbial/man/difftest.html">difftest()</a></code> function from the microbial package serves as a robust solution for conducting differential abundance testing in microbiome data analysis. Its core objective is to identify taxa (such as bacteria and fungi) that demonstrate noteworthy differences in abundance levels across two or more groups of samples.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggtext/">ggtext</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">microbial</span><span class="op">)</span></span>
@@ -660,8 +650,8 @@ NA
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Significant</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">padj</span> <span class="op">&lt;=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"Differential abundance results"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="st">"basic"</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"float_left"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu">kbl</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"Differential abundance results"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="st">"basic"</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"float_left"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table" style="width: auto !important; float: left; margin-right: 10px;">
 <caption>
 (#tab:diffabund_table)Differential abundance results
@@ -855,8 +845,9 @@ Yes
 </tr>
 </tbody>
 </table></div>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">### Differential abundance plot</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">### Differential abundance plot</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">microbial</span><span class="op">)</span></span>
@@ -894,9 +885,10 @@ Yes
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>,</span>
 <span>        legend.text <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="figuresdiffabund_table-1.png" width="672"></div>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">difftest_w_meta</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="inline-figure"><img src="figures/diffabund_table-1.png" width="672"></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">difftest_w_meta</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">taxon</span>, <span class="va">log2foldchange</span><span class="op">)</span>, x <span class="op">=</span> <span class="va">log2foldchange</span>, fill <span class="op">=</span> <span class="va">bmi_group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -904,9 +896,10 @@ Yes
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>,</span>
 <span>        legend.text <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="figuresdiffabund_table-2.png" width="672"></div>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">difftest_w_meta</span>, file <span class="op">=</span> <span class="st">"data/difftest_w_meta.rda"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="figures/diffabund_table-2.png" width="672"></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">difftest_w_meta</span>, file <span class="op">=</span> <span class="st">"data/difftest_w_meta.rda"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="biomarker-discovery" class="section level2" number="3.8">
 <h2>
@@ -924,27 +917,26 @@ Yes
 <span class="header-section-number">3.8.1</span> Biomarkers using microbial package<a class="anchor" aria-label="anchor" href="#microbial-pkg-markers"><i class="fas fa-link"></i></a>
 </h3>
 <p>Microbial R package performms Random Forest Classification then computes the Confusion Matrix as a means of evaluating the model’s performance.</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">microbial</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/microbial/man/biomarker.html">biomarker</a></span><span class="op">(</span><span class="va">ps_raw</span>, group <span class="op">=</span> <span class="st">"nationality"</span>, ntree <span class="op">=</span> <span class="fl">129</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/microbial/man/plotmarker.html">plotmarker</a></span><span class="op">(</span>level<span class="op">=</span><span class="st">"Genus"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_test</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<pre><code>
-Call:
- randomForest(formula = group ~ ., data = data, importance = TRUE,      proximity = TRUE, ntree = ntree) 
-               Type of random forest: classification
-                     Number of trees: 129
-No. of variables tried at each split: 8
-
-        OOB estimate of  error rate: 4.5%
-Confusion matrix:
-    AAM AFR class.error
-AAM 119   4  0.03252033
-AFR   6  93  0.06060606</code></pre>
-<div class="inline-figure"><img src="figuresbiomarker_plot-1.png" width="576"></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="statistical-significance-analysis.html#cb16-1" tabindex="-1"></a><span class="fu">library</span>(microbial)</span>
+<span id="cb16-2"><a href="statistical-significance-analysis.html#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="statistical-significance-analysis.html#cb16-3" tabindex="-1"></a><span class="fu">biomarker</span>(ps_raw, <span class="at">group =</span> <span class="st">"nationality"</span>, <span class="at">ntree =</span> <span class="dv">129</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="statistical-significance-analysis.html#cb16-4" tabindex="-1"></a><span class="fu">plotmarker</span>(<span class="at">level=</span><span class="st">"Genus"</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="statistical-significance-analysis.html#cb16-5" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb16-6"><a href="statistical-significance-analysis.html#cb16-6" tabindex="-1"></a>  <span class="fu">theme_test</span>() <span class="sc">+</span></span>
+<span id="cb16-7"><a href="statistical-significance-analysis.html#cb16-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>)</span>
+<span id="cb16-8"><a href="statistical-significance-analysis.html#cb16-8" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="statistical-significance-analysis.html#cb16-9" tabindex="-1"></a>Call<span class="sc">:</span></span>
+<span id="cb16-10"><a href="statistical-significance-analysis.html#cb16-10" tabindex="-1"></a> <span class="fu">randomForest</span>(<span class="at">formula =</span> group <span class="sc">~</span> ., <span class="at">data =</span> data, <span class="at">importance =</span> <span class="cn">TRUE</span>,      <span class="at">proximity =</span> <span class="cn">TRUE</span>, <span class="at">ntree =</span> ntree) </span>
+<span id="cb16-11"><a href="statistical-significance-analysis.html#cb16-11" tabindex="-1"></a>               Type of random forest<span class="sc">:</span> classification</span>
+<span id="cb16-12"><a href="statistical-significance-analysis.html#cb16-12" tabindex="-1"></a>                     Number of trees<span class="sc">:</span> <span class="dv">129</span></span>
+<span id="cb16-13"><a href="statistical-significance-analysis.html#cb16-13" tabindex="-1"></a>No. of variables tried at each split<span class="sc">:</span> <span class="dv">8</span></span>
+<span id="cb16-14"><a href="statistical-significance-analysis.html#cb16-14" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="statistical-significance-analysis.html#cb16-15" tabindex="-1"></a>        OOB estimate of  error rate<span class="sc">:</span> <span class="fl">4.5</span>%</span>
+<span id="cb16-16"><a href="statistical-significance-analysis.html#cb16-16" tabindex="-1"></a>Confusion matrix<span class="sc">:</span></span>
+<span id="cb16-17"><a href="statistical-significance-analysis.html#cb16-17" tabindex="-1"></a>    AAM AFR class.error</span>
+<span id="cb16-18"><a href="statistical-significance-analysis.html#cb16-18" tabindex="-1"></a>AAM <span class="dv">119</span>   <span class="dv">4</span>  <span class="fl">0.03252033</span></span>
+<span id="cb16-19"><a href="statistical-significance-analysis.html#cb16-19" tabindex="-1"></a>AFR   <span class="dv">6</span>  <span class="dv">93</span>  <span class="fl">0.06060606</span></span></code></pre></div>
+<div class="inline-figure"><img src="figures/biomarker_plot-1.png" width="576"></div>
 <blockquote>
 <p>More on biomarker discovery techniques in the next sections underMicrobial Machine Learning.</p>
 </blockquote>
@@ -990,7 +982,7 @@ AFR   6  93  0.06060606</code></pre>
     <div class="row">
       <div class="col-12 col-md-6 mt-3">
         <p><strong><u><a class="text-light" href="https://microbiome.complexdatainsights.com"><big>IMAP:</big> Integrated Microbiome Analysis Pipelines</a></u></strong>: End-to-End Practical User Guides Using Integrated Approaches</p>
-<br><p>Authored by Teresia Mrema-Buza, Last updated: <b>2024-04-18</b>.</p>
+<br><p>Authored by Teresia Mrema-Buza, Last updated: <b>2024-04-24</b>.</p>
 <br>
 </div>
       <div class="col-12 col-md-6 mt-3">
