@@ -530,6 +530,29 @@ sig_genera %>%
 ggsave("figures/significant_genera.tiff", width=6, height=4)
 ```
 
+## Using run_lefse() in microbiomeMaker Package
+The run_lefse() function in the microbiomeMaker R package provides a convenient method for performing Differential Abundance Analysis on microbiome data. By leveraging the Linear Discriminant Analysis Effect Size (LEfSe) algorithm, run_lefse() enables researchers to interpret the results in the context of biological class labels, uncovering important insights into microbial community dynamics.
+
+
+```r
+library(phyloseq)
+library(microbiomeMarker)
+
+# Run LEfSe analysis
+run_lefse(
+  ps_raw,
+  wilcoxon_cutoff = 0.0001,
+  group = "nationality",
+  taxa_rank = "Genus",
+  transform = "log10p",
+  kw_cutoff = 0.01,
+  multigrp_strat = TRUE,
+  lda_cutoff = 2
+) %>% 
+plot_heatmap(group = "nationality", color = "rainbow")
+```
+
+<img src="./figures/run_lefse-1.png" width="960" />
 
 
 # Wilcoxon Rank Sum and Signed Rank Tests
@@ -573,11 +596,11 @@ Call:
                      Number of trees: 129
 No. of variables tried at each split: 8
 
-        OOB estimate of  error rate: 5.41%
+        OOB estimate of  error rate: 4.95%
 Confusion matrix:
     AAM AFR class.error
-AAM 117   6  0.04878049
-AFR   6  93  0.06060606
+AAM 116   7  0.05691057
+AFR   4  95  0.04040404
 ```
 
 <img src="./figures/biomarker_plot-1.png" width="576" />

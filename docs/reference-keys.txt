@@ -8,6 +8,7 @@ population-wise-multivariate-anova
 core-taxa-multivariate-anova
 differential-abundance-analysis
 using-difftest-from-microbial-package
+using-run_lefse-in-microbiomemaker-package
 wilcoxon-rank-sum-and-signed-rank-tests
 kruskal-wallis-test
 biomarker-discovery
