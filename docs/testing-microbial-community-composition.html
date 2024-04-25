@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>2 Testing Microbial Community Composition | IMAP: Integrated Microbiome Analysis Pipelines</title>
+<meta name="author" content="Teresia Mrema-Buza">
+<meta name="description" content="This section delves into statistical analysis methods tailored specifically for microbiome data. Statistical analysis plays a crucial role in understanding the complex relationships and patterns...">
+<meta name="generator" content="bookdown 0.39 with bs4_book()">
+<meta property="og:title" content="2 Testing Microbial Community Composition | IMAP: Integrated Microbiome Analysis Pipelines">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://tmbuza.github.io/imap-statistical-analysis/testing-microbial-community-composition.html">
+<meta property="og:description" content="This section delves into statistical analysis methods tailored specifically for microbiome data. Statistical analysis plays a crucial role in understanding the complex relationships and patterns...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2 Testing Microbial Community Composition | IMAP: Integrated Microbiome Analysis Pipelines">
+<meta name="twitter:description" content="This section delves into statistical analysis methods tailored specifically for microbiome data. Statistical analysis plays a crucial role in understanding the complex relationships and patterns...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Sen-0.4.9/font.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM%20Mono&amp;display=swap" rel="stylesheet">
+<link href="libs/Bitter-0.4.9/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.7.0/transition.js"></script><script src="libs/bs3compat-0.7.0/tabs.js"></script><script src="libs/bs3compat-0.7.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="End-to-End Practical User Guides Using Integrated Approaches"><big>IMAP:</big> Integrated Microbiome Analysis Pipelines</a>:
+        <small class="text-muted">End-to-End Practical User Guides Using Integrated Approaches</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">IMAP-Part 09: Statistical Analysis of Microbiome Data</a></li>
+<li class="book-part">PREFACE</li>
+<li><a class="" href="statistical-analysis-techniques.html"><span class="header-section-number">1</span> Statistical Analysis Techniques</a></li>
+<li class="book-part">HYPOTHESIS TESTING</li>
+<li><a class="active" href="testing-microbial-community-composition.html"><span class="header-section-number">2</span> Testing Microbial Community Composition</a></li>
+<li><a class="" href="permanova.html"><span class="header-section-number">3</span> PERMANOVA: Permutation Analysis of Variance</a></li>
+<li><a class="" href="population-wise-multivariate-anova.html"><span class="header-section-number">4</span> Population-wise multivariate ANOVA</a></li>
+<li><a class="" href="core-taxa-multivariate-anova.html"><span class="header-section-number">5</span> Core taxa multivariate ANOVA</a></li>
+<li><a class="" href="differential-abundance-analysis.html"><span class="header-section-number">6</span> Differential Abundance Analysis</a></li>
+<li><a class="" href="wilcoxon-rank-sum-and-signed-rank-tests.html"><span class="header-section-number">7</span> Wilcoxon Rank Sum and Signed Rank Tests</a></li>
+<li><a class="" href="kruskal-wallis-test.html"><span class="header-section-number">8</span> Kruskal-Wallis test</a></li>
+<li><a class="" href="biomarker-discovery.html"><span class="header-section-number">9</span> Biomarker Discovery</a></li>
+<li class="book-part">APPENDIX</li>
+<li><a class="" href="imap-github-repos.html"><span class="header-section-number">A</span> IMAP GitHub Repos</a></li>
+<li><a class="" href="session-information.html"><span class="header-section-number">B</span> Session Information</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/tmbuza/imap-machine-learning">View book source <i class="fas fa-air-freshener"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="testing-microbial-community-composition" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Testing Microbial Community Composition<a class="anchor" aria-label="anchor" href="#testing-microbial-community-composition"><i class="fas fa-link"></i></a>
+</h1>
+<p>This section delves into statistical analysis methods tailored specifically for microbiome data. Statistical analysis plays a crucial role in understanding the complex relationships and patterns within microbiome datasets, helping researchers uncover significant findings and insights into microbial community dynamics, composition, and responses to various environmental factors or treatments.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span></span>
+<span>  echo  <span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>  message  <span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>  warning  <span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>  cache  <span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>  comment  <span class="op">=</span><span class="cn">NA</span>,</span>
+<span>  collapse <span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>  fig.path<span class="op">=</span><span class="st">'./figures/'</span>,</span>
+<span>  fig.show<span class="op">=</span><span class="st">'asis'</span>,</span>
+<span>  dev  <span class="op">=</span><span class="st">'png'</span><span class="op">)</span></span></code></pre></div>
+<div id="load-processed-data-objects" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Load processed data objects<a class="anchor" aria-label="anchor" href="#load-processed-data-objects"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="testing-microbial-community-composition.html#cb2-1" tabindex="-1"></a><span class="co"># Load required packages</span></span>
+<span id="cb2-2"><a href="testing-microbial-community-composition.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(phyloseq)</span>
+<span id="cb2-3"><a href="testing-microbial-community-composition.html#cb2-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-4"><a href="testing-microbial-community-composition.html#cb2-4" tabindex="-1"></a><span class="fu">library</span>(microbial)</span>
+<span id="cb2-5"><a href="testing-microbial-community-composition.html#cb2-5" tabindex="-1"></a><span class="fu">library</span>(microbiome)</span>
+<span id="cb2-6"><a href="testing-microbial-community-composition.html#cb2-6" tabindex="-1"></a><span class="fu">library</span>(microViz)</span>
+<span id="cb2-7"><a href="testing-microbial-community-composition.html#cb2-7" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="testing-microbial-community-composition.html#cb2-8" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../imap-data-exploration/data/psextra_distances.rda"</span>, <span class="at">verbose =</span> T)</span>
+<span id="cb2-9"><a href="testing-microbial-community-composition.html#cb2-9" tabindex="-1"></a>Loading objects<span class="sc">:</span></span>
+<span id="cb2-10"><a href="testing-microbial-community-composition.html#cb2-10" tabindex="-1"></a>  psextra_clr_asin_bray_dist</span>
+<span id="cb2-11"><a href="testing-microbial-community-composition.html#cb2-11" tabindex="-1"></a>  psextra_id_asin_bray_dist</span>
+<span id="cb2-12"><a href="testing-microbial-community-composition.html#cb2-12" tabindex="-1"></a>  psextra_log10p_asin_bray_dist</span>
+<span id="cb2-13"><a href="testing-microbial-community-composition.html#cb2-13" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../imap-data-exploration/data/phyloseq_raw_rel_psextra_df_objects.rda"</span>, <span class="at">verbose =</span> T)</span>
+<span id="cb2-14"><a href="testing-microbial-community-composition.html#cb2-14" tabindex="-1"></a>Loading objects<span class="sc">:</span></span>
+<span id="cb2-15"><a href="testing-microbial-community-composition.html#cb2-15" tabindex="-1"></a>  ps_raw</span>
+<span id="cb2-16"><a href="testing-microbial-community-composition.html#cb2-16" tabindex="-1"></a>  ps_rel</span>
+<span id="cb2-17"><a href="testing-microbial-community-composition.html#cb2-17" tabindex="-1"></a>  psextra_raw</span>
+<span id="cb2-18"><a href="testing-microbial-community-composition.html#cb2-18" tabindex="-1"></a>  psextra_rel</span>
+<span id="cb2-19"><a href="testing-microbial-community-composition.html#cb2-19" tabindex="-1"></a>  ps_df</span></code></pre></div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="statistical-analysis-techniques.html"><span class="header-section-number">1</span> Statistical Analysis Techniques</a></div>
+<div class="next"><a href="permanova.html"><span class="header-section-number">3</span> PERMANOVA: Permutation Analysis of Variance</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#testing-microbial-community-composition"><span class="header-section-number">2</span> Testing Microbial Community Composition</a></li>
+<li><a class="nav-link" href="#load-processed-data-objects"><span class="header-section-number">2.1</span> Load processed data objects</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/tmbuza/imap-machine-learning/blob/gh-pages/01_statistical_analysis.Rmd">View source <i class="fas fa-air-freshener"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/tmbuza/imap-machine-learning/edit/gh-pages/01_statistical_analysis.Rmd">Edit this page <i class="fas fa-air-freshener"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6 mt-3">
+        <p><strong><u><a class="text-light" href="https://microbiome.complexdatainsights.com"><big>IMAP:</big> Integrated Microbiome Analysis Pipelines</a></u></strong>: End-to-End Practical User Guides Using Integrated Approaches</p>
+<br><p>Authored by Teresia Mrema-Buza, Last updated: <b>2024-04-26</b>.</p>
+<br>
+</div>
+      <div class="col-12 col-md-6 mt-3">
+        <p>Note: This practical guide was created using the <a class="text-light" href="https://bookdown.org/yihui/bookdown/">bookdown</a> R package, styled with the modern bs4_book format.</p>
+      </div>
+
+    </div>
+  </div>
+</footer>
+</body>
+</html>

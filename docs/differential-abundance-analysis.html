@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>6 Differential Abundance Analysis | IMAP: Integrated Microbiome Analysis Pipelines</title>
+<meta name="author" content="Teresia Mrema-Buza">
+<meta name="description" content="6.1 Using difftest from microbial package The difftest() function from the microbial package serves as a robust solution for conducting differential abundance testing in microbiome data analysis....">
+<meta name="generator" content="bookdown 0.39 with bs4_book()">
+<meta property="og:title" content="6 Differential Abundance Analysis | IMAP: Integrated Microbiome Analysis Pipelines">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://tmbuza.github.io/imap-statistical-analysis/differential-abundance-analysis.html">
+<meta property="og:description" content="6.1 Using difftest from microbial package The difftest() function from the microbial package serves as a robust solution for conducting differential abundance testing in microbiome data analysis....">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="6 Differential Abundance Analysis | IMAP: Integrated Microbiome Analysis Pipelines">
+<meta name="twitter:description" content="6.1 Using difftest from microbial package The difftest() function from the microbial package serves as a robust solution for conducting differential abundance testing in microbiome data analysis....">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Sen-0.4.9/font.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM%20Mono&amp;display=swap" rel="stylesheet">
+<link href="libs/Bitter-0.4.9/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.7.0/transition.js"></script><script src="libs/bs3compat-0.7.0/tabs.js"></script><script src="libs/bs3compat-0.7.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="End-to-End Practical User Guides Using Integrated Approaches"><big>IMAP:</big> Integrated Microbiome Analysis Pipelines</a>:
+        <small class="text-muted">End-to-End Practical User Guides Using Integrated Approaches</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">IMAP-Part 09: Statistical Analysis of Microbiome Data</a></li>
+<li class="book-part">PREFACE</li>
+<li><a class="" href="statistical-analysis-techniques.html"><span class="header-section-number">1</span> Statistical Analysis Techniques</a></li>
+<li class="book-part">HYPOTHESIS TESTING</li>
+<li><a class="" href="testing-microbial-community-composition.html"><span class="header-section-number">2</span> Testing Microbial Community Composition</a></li>
+<li><a class="" href="permanova.html"><span class="header-section-number">3</span> PERMANOVA: Permutation Analysis of Variance</a></li>
+<li><a class="" href="population-wise-multivariate-anova.html"><span class="header-section-number">4</span> Population-wise multivariate ANOVA</a></li>
+<li><a class="" href="core-taxa-multivariate-anova.html"><span class="header-section-number">5</span> Core taxa multivariate ANOVA</a></li>
+<li><a class="active" href="differential-abundance-analysis.html"><span class="header-section-number">6</span> Differential Abundance Analysis</a></li>
+<li><a class="" href="wilcoxon-rank-sum-and-signed-rank-tests.html"><span class="header-section-number">7</span> Wilcoxon Rank Sum and Signed Rank Tests</a></li>
+<li><a class="" href="kruskal-wallis-test.html"><span class="header-section-number">8</span> Kruskal-Wallis test</a></li>
+<li><a class="" href="biomarker-discovery.html"><span class="header-section-number">9</span> Biomarker Discovery</a></li>
+<li class="book-part">APPENDIX</li>
+<li><a class="" href="imap-github-repos.html"><span class="header-section-number">A</span> IMAP GitHub Repos</a></li>
+<li><a class="" href="session-information.html"><span class="header-section-number">B</span> Session Information</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/tmbuza/imap-machine-learning">View book source <i class="fas fa-air-freshener"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="differential-abundance-analysis" class="section level1" number="6">
+<h1>
+<span class="header-section-number">6</span> Differential Abundance Analysis<a class="anchor" aria-label="anchor" href="#differential-abundance-analysis"><i class="fas fa-link"></i></a>
+</h1>
+<div id="using-difftest-from-microbial-package" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> Using difftest from microbial package<a class="anchor" aria-label="anchor" href="#using-difftest-from-microbial-package"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <code><a href="https://rdrr.io/pkg/microbial/man/difftest.html">difftest()</a></code> function from the microbial package serves as a robust solution for conducting differential abundance testing in microbiome data analysis. Its core objective is to identify taxa (such as bacteria and fungi) that demonstrate noteworthy differences in abundance levels across two or more groups of samples.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="differential-abundance-analysis.html#cb8-1" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="differential-abundance-analysis.html#cb8-2" tabindex="-1"></a><span class="co"># Load required packages</span></span>
+<span id="cb8-3"><a href="differential-abundance-analysis.html#cb8-3" tabindex="-1"></a><span class="fu">library</span>(microbial)</span>
+<span id="cb8-4"><a href="differential-abundance-analysis.html#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="differential-abundance-analysis.html#cb8-5" tabindex="-1"></a><span class="co"># Perform differential abundance analysis using difftest function</span></span>
+<span id="cb8-6"><a href="differential-abundance-analysis.html#cb8-6" tabindex="-1"></a>result_difftest <span class="ot">&lt;-</span> <span class="fu">difftest</span>(ps_raw, <span class="at">group =</span> <span class="st">"nationality"</span>)</span>
+<span id="cb8-7"><a href="differential-abundance-analysis.html#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="differential-abundance-analysis.html#cb8-8" tabindex="-1"></a><span class="co"># View the results</span></span>
+<span id="cb8-9"><a href="differential-abundance-analysis.html#cb8-9" tabindex="-1"></a><span class="fu">head</span>(result_difftest[, <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>])</span>
+<span id="cb8-10"><a href="differential-abundance-analysis.html#cb8-10" tabindex="-1"></a>         baseMean log2FoldChange     lfcSE      stat       pvalue         padj</span>
+<span id="cb8-11"><a href="differential-abundance-analysis.html#cb8-11" tabindex="-1"></a>OTU016 <span class="fl">273.896003</span>    <span class="sc">-</span><span class="fl">0.45871007</span> <span class="fl">0.1610307</span> <span class="sc">-</span><span class="fl">2.848589</span> <span class="fl">4.391364e-03</span> <span class="fl">8.499414e-03</span></span>
+<span id="cb8-12"><a href="differential-abundance-analysis.html#cb8-12" tabindex="-1"></a>OTU038  <span class="fl">18.625971</span>     <span class="fl">0.08889349</span> <span class="fl">0.1401160</span>  <span class="fl">0.634428</span> <span class="fl">5.258016e-01</span> <span class="fl">6.504762e-01</span></span>
+<span id="cb8-13"><a href="differential-abundance-analysis.html#cb8-13" tabindex="-1"></a>OTU055  <span class="fl">26.476581</span>     <span class="fl">0.44866807</span> <span class="fl">0.1357274</span>  <span class="fl">3.305657</span> <span class="fl">9.475402e-04</span> <span class="fl">2.105645e-03</span></span>
+<span id="cb8-14"><a href="differential-abundance-analysis.html#cb8-14" tabindex="-1"></a>OTU095   <span class="fl">8.707940</span>    <span class="sc">-</span><span class="fl">1.44945993</span> <span class="fl">0.1622408</span> <span class="sc">-</span><span class="fl">8.934006</span> <span class="fl">4.108545e-19</span> <span class="fl">3.081409e-18</span></span>
+<span id="cb8-15"><a href="differential-abundance-analysis.html#cb8-15" tabindex="-1"></a>OTU044   <span class="fl">7.779078</span>    <span class="sc">-</span><span class="fl">1.46593273</span> <span class="fl">0.1931797</span> <span class="sc">-</span><span class="fl">7.588441</span> <span class="fl">3.237768e-14</span> <span class="fl">1.766055e-13</span></span>
+<span id="cb8-16"><a href="differential-abundance-analysis.html#cb8-16" tabindex="-1"></a>OTU097   <span class="fl">1.633998</span>     <span class="fl">0.38558799</span> <span class="fl">0.1657909</span>  <span class="fl">2.325749</span> <span class="fl">2.003192e-02</span> <span class="fl">3.338653e-02</span></span>
+<span id="cb8-17"><a href="differential-abundance-analysis.html#cb8-17" tabindex="-1"></a>       Sample<span class="dv">-1</span></span>
+<span id="cb8-18"><a href="differential-abundance-analysis.html#cb8-18" tabindex="-1"></a>OTU016       <span class="dv">87</span></span>
+<span id="cb8-19"><a href="differential-abundance-analysis.html#cb8-19" tabindex="-1"></a>OTU038       <span class="dv">10</span></span>
+<span id="cb8-20"><a href="differential-abundance-analysis.html#cb8-20" tabindex="-1"></a>OTU055       <span class="dv">15</span></span>
+<span id="cb8-21"><a href="differential-abundance-analysis.html#cb8-21" tabindex="-1"></a>OTU095        <span class="dv">3</span></span>
+<span id="cb8-22"><a href="differential-abundance-analysis.html#cb8-22" tabindex="-1"></a>OTU044        <span class="dv">8</span></span>
+<span id="cb8-23"><a href="differential-abundance-analysis.html#cb8-23" tabindex="-1"></a>OTU097        <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggtext/">ggtext</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">microbial</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">result_difftest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">log2FoldChange</span>, <span class="va">pvalue</span>, <span class="va">padj</span>, <span class="va">Significant</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Significant</span> <span class="op">==</span> <span class="st">"check"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">padj</span> <span class="op">&lt;=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"Differential abundance results"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="st">"basic"</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"float_left"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table" style="width: auto !important; float: left; margin-right: 10px;">
+<caption>
+(#tab:diffabund_plots)Differential abundance results
+</caption>
+<thead><tr>
+<th style="text-align:right;">
+log2FoldChange
+</th>
+<th style="text-align:right;">
+pvalue
+</th>
+<th style="text-align:right;">
+padj
+</th>
+<th style="text-align:left;">
+Significant
+</th>
+</tr></thead>
+<tbody><tr></tr></tbody>
+</table></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">### Differential abundance plot</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">microbial</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">difftest_w_metadata</span> <span class="op">&lt;-</span> <span class="va">result_difftest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select_all.html">rename_all</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/make.unique.html">make.unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span><span class="st">"otu"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">.</span>, <span class="fu">psmelt</span><span class="op">(</span><span class="va">ps_raw</span><span class="op">)</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"otu"</span> <span class="op">=</span> <span class="st">"OTU"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">nationality</span>, <span class="va">bmi_group</span><span class="op">)</span>, .after <span class="op">=</span> <span class="va">otu</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>nationality <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">nationality</span>,</span>
+<span>                      levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"AAM"</span>, <span class="st">"AFR"</span><span class="op">)</span>,</span>
+<span>                      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"African American"</span>, <span class="st">"African"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>         bmi_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">bmi_group</span>,</span>
+<span>                      levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lean"</span>, <span class="st">"overweight"</span>, <span class="st">"obese"</span><span class="op">)</span>,</span>
+<span>                      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Lean"</span>, <span class="st">"Overweight"</span>, <span class="st">"Obese"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select_all.html">rename_all</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/make.unique.html">make.unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">phylum_1</span>, <span class="op">-</span><span class="va">family_1</span>, <span class="op">-</span><span class="va">genus_1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">otu</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"phylum"</span>, <span class="st">"family"</span>, <span class="st">"genus"</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"level"</span>, values_to <span class="op">=</span> <span class="st">"taxon"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span>string <span class="op">=</span> <span class="va">taxon</span>,</span>
+<span>                            pattern <span class="op">=</span> <span class="st">"(.*)"</span>,</span>
+<span>                            replacement <span class="op">=</span> <span class="st">"*\\1*"</span><span class="op">)</span>,</span>
+<span>        taxon <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span>string <span class="op">=</span> <span class="va">taxon</span>,</span>
+<span>                            pattern <span class="op">=</span> <span class="st">"\\*(.*)_unclassified\\*"</span>,</span>
+<span>                            replacement <span class="op">=</span> <span class="st">"Unclassified&lt;br&gt;*\\1*"</span><span class="op">)</span>,</span>
+<span>        taxon <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">taxon</span>, <span class="st">"_"</span>, <span class="st">" "</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">padj</span> <span class="op">&lt;=</span> <span class="fl">0.0001</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">level</span> <span class="op">==</span> <span class="st">"genus"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">difftest_w_metadata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">taxon</span>, <span class="va">log2foldchange</span><span class="op">)</span>, x <span class="op">=</span> <span class="va">log2foldchange</span>, fill <span class="op">=</span> <span class="va">nationality</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Log2 Fold Change"</span>, y <span class="op">=</span> <span class="st">""</span>, fill <span class="op">=</span> <span class="cn">NULL</span>, subtitle <span class="op">=</span> <span class="st">"Differential abundance by nationality"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>,</span>
+<span>        legend.text <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="figures/diffabund_plots-1.png" width="672"></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">difftest_w_metadata</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">taxon</span>, <span class="va">log2foldchange</span><span class="op">)</span>, x <span class="op">=</span> <span class="va">log2foldchange</span>, fill <span class="op">=</span> <span class="va">bmi_group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Log2 Fold Change"</span>, y <span class="op">=</span> <span class="st">""</span>, fill <span class="op">=</span> <span class="cn">NULL</span>, subtitle <span class="op">=</span> <span class="st">"Differential abundance by BMI"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>,</span>
+<span>        legend.text <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="figures/diffabund_plots-2.png" width="672"></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">difftest_w_metadata</span>, file <span class="op">=</span> <span class="st">"data/difftest_w_metadata.rda"</span><span class="op">)</span></span></code></pre></div>
+<p><strong>Practicing with filtering and pivot_longer()</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="differential-abundance-analysis.html#cb13-1" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb13-2"><a href="differential-abundance-analysis.html#cb13-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-3"><a href="differential-abundance-analysis.html#cb13-3" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb13-4"><a href="differential-abundance-analysis.html#cb13-4" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="differential-abundance-analysis.html#cb13-5" tabindex="-1"></a>sig_genera <span class="ot">&lt;-</span> difftest_w_metadata <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="differential-abundance-analysis.html#cb13-6" tabindex="-1"></a>  <span class="fu">arrange</span>(padj) <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="differential-abundance-analysis.html#cb13-7" tabindex="-1"></a>  <span class="fu">select</span>(taxon, nationality, bmi_group, basemean, log2foldchange, lfcse, stat, pvalue, padj, <span class="st">"sample-1"</span><span class="sc">:</span><span class="st">"sample-222"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href="differential-abundance-analysis.html#cb13-8" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"sample-1"</span><span class="sc">:</span><span class="st">"sample-222"</span>), <span class="at">names_to =</span> <span class="st">"sample_id"</span>, <span class="at">values_to =</span> <span class="st">"count"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-9"><a href="differential-abundance-analysis.html#cb13-9" tabindex="-1"></a>  <span class="fu">group_by</span>(sample_id) <span class="sc">%&gt;%</span></span>
+<span id="cb13-10"><a href="differential-abundance-analysis.html#cb13-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rel_abund =</span> count<span class="sc">/</span><span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-11"><a href="differential-abundance-analysis.html#cb13-11" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-12"><a href="differential-abundance-analysis.html#cb13-12" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>count) <span class="sc">%&gt;%</span></span>
+<span id="cb13-13"><a href="differential-abundance-analysis.html#cb13-13" tabindex="-1"></a>  <span class="fu">relocate</span>(sample_id) <span class="sc">%&gt;%</span></span>
+<span id="cb13-14"><a href="differential-abundance-analysis.html#cb13-14" tabindex="-1"></a>  <span class="fu">filter</span>(rel_abund <span class="sc">&gt;</span> <span class="fl">0.1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-15"><a href="differential-abundance-analysis.html#cb13-15" tabindex="-1"></a>  <span class="fu">filter</span>(padj <span class="sc">&lt;</span> <span class="fl">0.01</span>)</span>
+<span id="cb13-16"><a href="differential-abundance-analysis.html#cb13-16" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="differential-abundance-analysis.html#cb13-17" tabindex="-1"></a><span class="fu">head</span>(sig_genera)</span>
+<span id="cb13-18"><a href="differential-abundance-analysis.html#cb13-18" tabindex="-1"></a><span class="co"># A tibble: 6 × 11</span></span>
+<span id="cb13-19"><a href="differential-abundance-analysis.html#cb13-19" tabindex="-1"></a>  sample_id  taxon     nationality bmi_group basemean log2foldchange lfcse  stat</span>
+<span id="cb13-20"><a href="differential-abundance-analysis.html#cb13-20" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     <span class="er">&lt;</span>fct<span class="sc">&gt;</span>       <span class="er">&lt;</span>fct<span class="sc">&gt;</span>        <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>          <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb13-21"><a href="differential-abundance-analysis.html#cb13-21" tabindex="-1"></a><span class="dv">1</span> sample<span class="dv">-128</span> <span class="sc">*</span>Bactero… African Am… Overweig…     <span class="fl">106.</span>           <span class="fl">2.66</span> <span class="fl">0.148</span>  <span class="fl">18.0</span></span>
+<span id="cb13-22"><a href="differential-abundance-analysis.html#cb13-22" tabindex="-1"></a><span class="dv">2</span> sample<span class="dv">-39</span>  <span class="sc">*</span>Allisti… African Am… Obese         <span class="fl">246.</span>           <span class="fl">2.72</span> <span class="fl">0.158</span>  <span class="fl">17.2</span></span>
+<span id="cb13-23"><a href="differential-abundance-analysis.html#cb13-23" tabindex="-1"></a><span class="dv">3</span> sample<span class="dv">-45</span>  <span class="sc">*</span>Allisti… African Am… Obese         <span class="fl">246.</span>           <span class="fl">2.72</span> <span class="fl">0.158</span>  <span class="fl">17.2</span></span>
+<span id="cb13-24"><a href="differential-abundance-analysis.html#cb13-24" tabindex="-1"></a><span class="dv">4</span> sample<span class="dv">-68</span>  <span class="sc">*</span>Allisti… African Am… Obese         <span class="fl">246.</span>           <span class="fl">2.72</span> <span class="fl">0.158</span>  <span class="fl">17.2</span></span>
+<span id="cb13-25"><a href="differential-abundance-analysis.html#cb13-25" tabindex="-1"></a><span class="dv">5</span> sample<span class="dv">-73</span>  <span class="sc">*</span>Allisti… African Am… Obese         <span class="fl">246.</span>           <span class="fl">2.72</span> <span class="fl">0.158</span>  <span class="fl">17.2</span></span>
+<span id="cb13-26"><a href="differential-abundance-analysis.html#cb13-26" tabindex="-1"></a><span class="dv">6</span> sample<span class="dv">-109</span> <span class="sc">*</span>Allisti… African Am… Obese         <span class="fl">246.</span>           <span class="fl">2.72</span> <span class="fl">0.158</span>  <span class="fl">17.2</span></span>
+<span id="cb13-27"><a href="differential-abundance-analysis.html#cb13-27" tabindex="-1"></a><span class="co"># ℹ 3 more variables: pvalue &lt;dbl&gt;, padj &lt;dbl&gt;, rel_abund &lt;dbl&gt;</span></span>
+<span id="cb13-28"><a href="differential-abundance-analysis.html#cb13-28" tabindex="-1"></a></span>
+<span id="cb13-29"><a href="differential-abundance-analysis.html#cb13-29" tabindex="-1"></a></span>
+<span id="cb13-30"><a href="differential-abundance-analysis.html#cb13-30" tabindex="-1"></a><span class="co"># By nationality</span></span>
+<span id="cb13-31"><a href="differential-abundance-analysis.html#cb13-31" tabindex="-1"></a>sig_genera <span class="sc">%&gt;%</span> </span>
+<span id="cb13-32"><a href="differential-abundance-analysis.html#cb13-32" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>rel_abund, <span class="at">y=</span>taxon, <span class="at">fill =</span> nationality)) <span class="sc">+</span></span>
+<span id="cb13-33"><a href="differential-abundance-analysis.html#cb13-33" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">dodge.width =</span> <span class="fl">0.8</span>,</span>
+<span id="cb13-34"><a href="differential-abundance-analysis.html#cb13-34" tabindex="-1"></a>                                              <span class="at">jitter.width =</span> <span class="fl">0.5</span>),</span>
+<span id="cb13-35"><a href="differential-abundance-analysis.html#cb13-35" tabindex="-1"></a>              <span class="at">shape=</span><span class="dv">21</span>) <span class="sc">+</span></span>
+<span id="cb13-36"><a href="differential-abundance-analysis.html#cb13-36" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> median_hilow, <span class="at">fun.args =</span> <span class="fu">list</span>(<span class="at">conf.int=</span><span class="fl">0.5</span>),</span>
+<span id="cb13-37"><a href="differential-abundance-analysis.html#cb13-37" tabindex="-1"></a>               <span class="at">geom=</span><span class="st">"pointrange"</span>,</span>
+<span id="cb13-38"><a href="differential-abundance-analysis.html#cb13-38" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.8</span>),</span>
+<span id="cb13-39"><a href="differential-abundance-analysis.html#cb13-39" tabindex="-1"></a>               <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-40"><a href="differential-abundance-analysis.html#cb13-40" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb13-41"><a href="differential-abundance-analysis.html#cb13-41" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="cn">NULL</span>,</span>
+<span id="cb13-42"><a href="differential-abundance-analysis.html#cb13-42" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(F, T),</span>
+<span id="cb13-43"><a href="differential-abundance-analysis.html#cb13-43" tabindex="-1"></a>                     <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"grey"</span>, <span class="st">"dodgerblue"</span>),</span>
+<span id="cb13-44"><a href="differential-abundance-analysis.html#cb13-44" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"African American"</span>, <span class="st">"African"</span>)) <span class="sc">+</span></span>
+<span id="cb13-45"><a href="differential-abundance-analysis.html#cb13-45" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="st">"Relative abundance (%)"</span>, <span class="at">y=</span><span class="cn">NULL</span>, <span class="at">fill =</span> <span class="st">"Nationality"</span>) <span class="sc">+</span></span>
+<span id="cb13-46"><a href="differential-abundance-analysis.html#cb13-46" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb13-47"><a href="differential-abundance-analysis.html#cb13-47" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb13-48"><a href="differential-abundance-analysis.html#cb13-48" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_markdown</span>()</span>
+<span id="cb13-49"><a href="differential-abundance-analysis.html#cb13-49" tabindex="-1"></a>)</span></code></pre></div>
+<div class="inline-figure"><img src="figures/unnamed-chunk-5-1.png" width="672"></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="co"># By body mass index</span></span>
+<span><span class="va">sig_genera</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">rel_abund</span>, y<span class="op">=</span><span class="va">taxon</span>, fill <span class="op">=</span> <span class="va">bmi_group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitterdodge.html">position_jitterdodge</a></span><span class="op">(</span>dodge.width <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>                                              jitter.width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>              shape<span class="op">=</span><span class="fl">21</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary</a></span><span class="op">(</span>fun.data <span class="op">=</span> <span class="va">median_hilow</span>, fun.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>conf.int<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>               geom<span class="op">=</span><span class="st">"pointrange"</span>,</span>
+<span>               position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span>width<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span>,</span>
+<span>               show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x<span class="op">=</span> <span class="st">"Relative abundance (%)"</span>, y<span class="op">=</span><span class="cn">NULL</span>, fill <span class="op">=</span> <span class="st">"BMI"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>    axis.text.y <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="figures/unnamed-chunk-5-2.png" width="672"></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"figures/significant_genera.tiff"</span>, width<span class="op">=</span><span class="fl">6</span>, height<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="core-taxa-multivariate-anova.html"><span class="header-section-number">5</span> Core taxa multivariate ANOVA</a></div>
+<div class="next"><a href="wilcoxon-rank-sum-and-signed-rank-tests.html"><span class="header-section-number">7</span> Wilcoxon Rank Sum and Signed Rank Tests</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#differential-abundance-analysis"><span class="header-section-number">6</span> Differential Abundance Analysis</a></li>
+<li><a class="nav-link" href="#using-difftest-from-microbial-package"><span class="header-section-number">6.1</span> Using difftest from microbial package</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/tmbuza/imap-machine-learning/blob/gh-pages/01_statistical_analysis.Rmd">View source <i class="fas fa-air-freshener"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/tmbuza/imap-machine-learning/edit/gh-pages/01_statistical_analysis.Rmd">Edit this page <i class="fas fa-air-freshener"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6 mt-3">
+        <p><strong><u><a class="text-light" href="https://microbiome.complexdatainsights.com"><big>IMAP:</big> Integrated Microbiome Analysis Pipelines</a></u></strong>: End-to-End Practical User Guides Using Integrated Approaches</p>
+<br><p>Authored by Teresia Mrema-Buza, Last updated: <b>2024-04-26</b>.</p>
+<br>
+</div>
+      <div class="col-12 col-md-6 mt-3">
+        <p>Note: This practical guide was created using the <a class="text-light" href="https://bookdown.org/yihui/bookdown/">bookdown</a> R package, styled with the modern bs4_book format.</p>
+      </div>
+
+    </div>
+  </div>
+</footer>
+</body>
+</html>

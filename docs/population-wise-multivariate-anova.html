@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>4 Population-wise multivariate ANOVA | IMAP: Integrated Microbiome Analysis Pipelines</title>
+<meta name="author" content="Teresia Mrema-Buza">
+<meta name="description" content="# Fit the MANOVA model manova_model &lt;- manova(cbind(count, rel_abund) ~ nationality + bmi, data = ps_df) # Print the summary of MANOVA results summary(manova_model)        Df  Pillai approx F num...">
+<meta name="generator" content="bookdown 0.39 with bs4_book()">
+<meta property="og:title" content="4 Population-wise multivariate ANOVA | IMAP: Integrated Microbiome Analysis Pipelines">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://tmbuza.github.io/imap-statistical-analysis/population-wise-multivariate-anova.html">
+<meta property="og:description" content="# Fit the MANOVA model manova_model &lt;- manova(cbind(count, rel_abund) ~ nationality + bmi, data = ps_df) # Print the summary of MANOVA results summary(manova_model)        Df  Pillai approx F num...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4 Population-wise multivariate ANOVA | IMAP: Integrated Microbiome Analysis Pipelines">
+<meta name="twitter:description" content="# Fit the MANOVA model manova_model &lt;- manova(cbind(count, rel_abund) ~ nationality + bmi, data = ps_df) # Print the summary of MANOVA results summary(manova_model)        Df  Pillai approx F num...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Sen-0.4.9/font.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM%20Mono&amp;display=swap" rel="stylesheet">
+<link href="libs/Bitter-0.4.9/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.7.0/transition.js"></script><script src="libs/bs3compat-0.7.0/tabs.js"></script><script src="libs/bs3compat-0.7.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="End-to-End Practical User Guides Using Integrated Approaches"><big>IMAP:</big> Integrated Microbiome Analysis Pipelines</a>:
+        <small class="text-muted">End-to-End Practical User Guides Using Integrated Approaches</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">IMAP-Part 09: Statistical Analysis of Microbiome Data</a></li>
+<li class="book-part">PREFACE</li>
+<li><a class="" href="statistical-analysis-techniques.html"><span class="header-section-number">1</span> Statistical Analysis Techniques</a></li>
+<li class="book-part">HYPOTHESIS TESTING</li>
+<li><a class="" href="testing-microbial-community-composition.html"><span class="header-section-number">2</span> Testing Microbial Community Composition</a></li>
+<li><a class="" href="permanova.html"><span class="header-section-number">3</span> PERMANOVA: Permutation Analysis of Variance</a></li>
+<li><a class="active" href="population-wise-multivariate-anova.html"><span class="header-section-number">4</span> Population-wise multivariate ANOVA</a></li>
+<li><a class="" href="core-taxa-multivariate-anova.html"><span class="header-section-number">5</span> Core taxa multivariate ANOVA</a></li>
+<li><a class="" href="differential-abundance-analysis.html"><span class="header-section-number">6</span> Differential Abundance Analysis</a></li>
+<li><a class="" href="wilcoxon-rank-sum-and-signed-rank-tests.html"><span class="header-section-number">7</span> Wilcoxon Rank Sum and Signed Rank Tests</a></li>
+<li><a class="" href="kruskal-wallis-test.html"><span class="header-section-number">8</span> Kruskal-Wallis test</a></li>
+<li><a class="" href="biomarker-discovery.html"><span class="header-section-number">9</span> Biomarker Discovery</a></li>
+<li class="book-part">APPENDIX</li>
+<li><a class="" href="imap-github-repos.html"><span class="header-section-number">A</span> IMAP GitHub Repos</a></li>
+<li><a class="" href="session-information.html"><span class="header-section-number">B</span> Session Information</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/tmbuza/imap-machine-learning">View book source <i class="fas fa-air-freshener"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="population-wise-multivariate-anova" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Population-wise multivariate ANOVA<a class="anchor" aria-label="anchor" href="#population-wise-multivariate-anova"><i class="fas fa-link"></i></a>
+</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="population-wise-multivariate-anova.html#cb4-1" tabindex="-1"></a><span class="co"># Fit the MANOVA model</span></span>
+<span id="cb4-2"><a href="population-wise-multivariate-anova.html#cb4-2" tabindex="-1"></a>manova_model <span class="ot">&lt;-</span> <span class="fu">manova</span>(<span class="fu">cbind</span>(count, rel_abund) <span class="sc">~</span> nationality <span class="sc">+</span> bmi, <span class="at">data =</span> ps_df)</span>
+<span id="cb4-3"><a href="population-wise-multivariate-anova.html#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="population-wise-multivariate-anova.html#cb4-4" tabindex="-1"></a><span class="co"># Print the summary of MANOVA results</span></span>
+<span id="cb4-5"><a href="population-wise-multivariate-anova.html#cb4-5" tabindex="-1"></a><span class="fu">summary</span>(manova_model)</span>
+<span id="cb4-6"><a href="population-wise-multivariate-anova.html#cb4-6" tabindex="-1"></a>               Df    Pillai approx F num Df den Df    <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)    </span>
+<span id="cb4-7"><a href="population-wise-multivariate-anova.html#cb4-7" tabindex="-1"></a>nationality     <span class="dv">1</span> <span class="fl">0.0040744</span>  <span class="fl">187.566</span>      <span class="dv">2</span>  <span class="dv">91695</span> <span class="sc">&lt;</span> <span class="fl">2.2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb4-8"><a href="population-wise-multivariate-anova.html#cb4-8" tabindex="-1"></a>bmi             <span class="dv">2</span> <span class="fl">0.0019451</span>   <span class="fl">44.633</span>      <span class="dv">4</span> <span class="dv">183392</span> <span class="sc">&lt;</span> <span class="fl">2.2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb4-9"><a href="population-wise-multivariate-anova.html#cb4-9" tabindex="-1"></a>Residuals   <span class="dv">91696</span>                                               </span>
+<span id="cb4-10"><a href="population-wise-multivariate-anova.html#cb4-10" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb4-11"><a href="population-wise-multivariate-anova.html#cb4-11" tabindex="-1"></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span></code></pre></div>
+<blockquote>
+<h2 id="interpretation-of-manova-results">Interpretation of MANOVA results</h2>
+<ul>
+<li>
+<strong>Df</strong>: Degrees of freedom, which represent the number of independent values or quantities that can be assigned to a statistical distribution.</li>
+<li>
+<strong>Pillai</strong>: The Pillai-Bartlett trace, a multivariate test statistic that measures the overall significance of the model and the independent variables’ effects on the dependent variables. It ranges from 0 to 1, where higher values indicate stronger effects.</li>
+<li>
+<strong>Approx F</strong>: The approximate F-statistic associated with the Pillai-Bartlett trace. It assesses the significance of the model and the independent variables’ effects on the dependent variables.</li>
+<li>
+<strong>num Df</strong>: The numerator degrees of freedom, representing the number of independent variables or parameters in the model.</li>
+<li>
+<strong>den Df</strong>: The denominator degrees of freedom, representing the error or residual degrees of freedom.</li>
+<li>
+<strong>Pr(&gt;F)</strong>: The p-value associated with the F-statistic. It indicates the probability of observing the test statistic (or one more extreme) under the null hypothesis that there are no differences between the groups defined by the independent variables. A small p-value (typically below a predetermined significance level, such as 0.05) suggests that the observed differences are statistically significant, leading to the rejection of the null hypothesis.</li>
+</ul>
+</blockquote>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan">vegan</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">microbial</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ps_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/microbial/man/betatest.html">betatest</a></span><span class="op">(</span>group <span class="op">=</span> <span class="st">"nationality"</span>, distance <span class="op">=</span> <span class="st">"bray"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"html"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="st">"basic"</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"float_left"</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/column_spec.html">column_spec</a></span><span class="op">(</span><span class="fl">7</span>, bold <span class="op">=</span> <span class="cn">TRUE</span>, color <span class="op">=</span> <span class="st">"black"</span>, background <span class="op">=</span> <span class="st">"#eeeeee"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table" style="width: auto !important; float: left; margin-right: 10px;">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Df
+</th>
+<th style="text-align:right;">
+SumsOfSqs
+</th>
+<th style="text-align:right;">
+MeanSqs
+</th>
+<th style="text-align:right;">
+F.Model
+</th>
+<th style="text-align:right;">
+R2
+</th>
+<th style="text-align:right;">
+Pr(&gt;F)
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Group
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6.940786
+</td>
+<td style="text-align:right;">
+6.9407856
+</td>
+<td style="text-align:right;">
+47.01117
+</td>
+<td style="text-align:right;">
+0.1760644
+</td>
+<td style="text-align:right;font-weight: bold;color: black !important;background-color: rgba(238, 238, 238, 255) !important;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residuals
+</td>
+<td style="text-align:right;">
+220
+</td>
+<td style="text-align:right;">
+32.481061
+</td>
+<td style="text-align:right;">
+0.1476412
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.8239356
+</td>
+<td style="text-align:right;font-weight: bold;color: black !important;background-color: rgba(238, 238, 238, 255) !important;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+221
+</td>
+<td style="text-align:right;">
+39.421847
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+1.0000000
+</td>
+<td style="text-align:right;font-weight: bold;color: black !important;background-color: rgba(238, 238, 238, 255) !important;">
+NA
+</td>
+</tr>
+</tbody>
+</table></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">ps_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/microbial/man/betatest.html">betatest</a></span><span class="op">(</span>group <span class="op">=</span> <span class="st">"bmi_group"</span>, distance <span class="op">=</span> <span class="st">"bray"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"html"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="st">"basic"</span>, full_width <span class="op">=</span> <span class="cn">F</span>, position <span class="op">=</span> <span class="st">"float_left"</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/column_spec.html">column_spec</a></span><span class="op">(</span><span class="fl">7</span>, bold <span class="op">=</span> <span class="cn">TRUE</span>, color <span class="op">=</span> <span class="st">"black"</span>, background <span class="op">=</span> <span class="st">"#eeeeee"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table" style="width: auto !important; float: left; margin-right: 10px;">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Df
+</th>
+<th style="text-align:right;">
+SumsOfSqs
+</th>
+<th style="text-align:right;">
+MeanSqs
+</th>
+<th style="text-align:right;">
+F.Model
+</th>
+<th style="text-align:right;">
+R2
+</th>
+<th style="text-align:right;">
+Pr(&gt;F)
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Group
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2.303012
+</td>
+<td style="text-align:right;">
+1.1515062
+</td>
+<td style="text-align:right;">
+6.793851
+</td>
+<td style="text-align:right;">
+0.0584197
+</td>
+<td style="text-align:right;font-weight: bold;color: black !important;background-color: rgba(238, 238, 238, 255) !important;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Residuals
+</td>
+<td style="text-align:right;">
+219
+</td>
+<td style="text-align:right;">
+37.118834
+</td>
+<td style="text-align:right;">
+0.1694924
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.9415803
+</td>
+<td style="text-align:right;font-weight: bold;color: black !important;background-color: rgba(238, 238, 238, 255) !important;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+221
+</td>
+<td style="text-align:right;">
+39.421847
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+1.0000000
+</td>
+<td style="text-align:right;font-weight: bold;color: black !important;background-color: rgba(238, 238, 238, 255) !important;">
+NA
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="permanova.html"><span class="header-section-number">3</span> PERMANOVA: Permutation Analysis of Variance</a></div>
+<div class="next"><a href="core-taxa-multivariate-anova.html"><span class="header-section-number">5</span> Core taxa multivariate ANOVA</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#population-wise-multivariate-anova"><span class="header-section-number">4</span> Population-wise multivariate ANOVA</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/tmbuza/imap-machine-learning/blob/gh-pages/01_statistical_analysis.Rmd">View source <i class="fas fa-air-freshener"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/tmbuza/imap-machine-learning/edit/gh-pages/01_statistical_analysis.Rmd">Edit this page <i class="fas fa-air-freshener"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6 mt-3">
+        <p><strong><u><a class="text-light" href="https://microbiome.complexdatainsights.com"><big>IMAP:</big> Integrated Microbiome Analysis Pipelines</a></u></strong>: End-to-End Practical User Guides Using Integrated Approaches</p>
+<br><p>Authored by Teresia Mrema-Buza, Last updated: <b>2024-04-26</b>.</p>
+<br>
+</div>
+      <div class="col-12 col-md-6 mt-3">
+        <p>Note: This practical guide was created using the <a class="text-light" href="https://bookdown.org/yihui/bookdown/">bookdown</a> R package, styled with the modern bs4_book format.</p>
+      </div>
+
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -18,10 +18,7 @@
 | [PART 09](https://github.com/tmbuza/imap-statistical-analysis/) | Statistical analysis of processed 16S-based microbiome data | [Link](https://tmbuza.github.io/imap-statistical-analysis/) |
 | [PART 10](https://github.com/tmbuza/imap-machine-learning/) | Machine learning analysis of processed 16S-based microbiome data | [Link](https://tmbuza.github.io/imap-machine-learning/) |```
 
-
-# Read QC Rulegraph
-
-![](dags/rulegraph.svg)
+```
 
 
 # Session Information

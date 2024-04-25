@@ -50,14 +50,20 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="active" href="index.html">IMAP-Part 09: Statistical Analysis of Microbiome Data</a></li>
-<li class="book-part">STATISTICAL TESTING</li>
-<li><a class="" href="microbiome-statistical-analysis-steps.html"><span class="header-section-number">1</span> Microbiome Statistical Analysis Steps</a></li>
-<li class="book-part">STATISTICAL ANALYSIS</li>
-<li><a class="" href="statistical-significance-analysis.html"><span class="header-section-number">3</span> Statistical Significance Analysis</a></li>
+<li class="book-part">PREFACE</li>
+<li><a class="" href="statistical-analysis-techniques.html"><span class="header-section-number">1</span> Statistical Analysis Techniques</a></li>
+<li class="book-part">HYPOTHESIS TESTING</li>
+<li><a class="" href="testing-microbial-community-composition.html"><span class="header-section-number">2</span> Testing Microbial Community Composition</a></li>
+<li><a class="" href="permanova.html"><span class="header-section-number">3</span> PERMANOVA: Permutation Analysis of Variance</a></li>
+<li><a class="" href="population-wise-multivariate-anova.html"><span class="header-section-number">4</span> Population-wise multivariate ANOVA</a></li>
+<li><a class="" href="core-taxa-multivariate-anova.html"><span class="header-section-number">5</span> Core taxa multivariate ANOVA</a></li>
+<li><a class="" href="differential-abundance-analysis.html"><span class="header-section-number">6</span> Differential Abundance Analysis</a></li>
+<li><a class="" href="wilcoxon-rank-sum-and-signed-rank-tests.html"><span class="header-section-number">7</span> Wilcoxon Rank Sum and Signed Rank Tests</a></li>
+<li><a class="" href="kruskal-wallis-test.html"><span class="header-section-number">8</span> Kruskal-Wallis test</a></li>
+<li><a class="" href="biomarker-discovery.html"><span class="header-section-number">9</span> Biomarker Discovery</a></li>
 <li class="book-part">APPENDIX</li>
 <li><a class="" href="imap-github-repos.html"><span class="header-section-number">A</span> IMAP GitHub Repos</a></li>
-<li><a class="" href="read-qc-rulegraph.html"><span class="header-section-number">B</span> Read QC Rulegraph</a></li>
-<li><a class="" href="session-information.html"><span class="header-section-number">C</span> Session Information</a></li>
+<li><a class="" href="session-information.html"><span class="header-section-number">B</span> Session Information</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
 
@@ -70,11 +76,11 @@
 <h1>
 <u>IMAP-Part 09</u>: Statistical Analysis of Microbiome Data<a class="anchor" aria-label="anchor" href="#statistical-analysis"><i class="fas fa-link"></i></a>
 </h1>
-<p><br><br><img src="images/stats.png" style="width:100.0%"></p>
+<p><br><br><img src="images/stats.png" style="width:80.0%"></p>
 <div id="welcome-to-imap-chapter-09" class="section level2 unnumbered">
 <h2>Welcome to IMAP chapter 09<a class="anchor" aria-label="anchor" href="#welcome-to-imap-chapter-09"><i class="fas fa-link"></i></a>
 </h2>
-<p>Embarking on the exploration of microbiome statistical analysis, our guide aims to unravel the complexities of deciphering data pertaining to the structure and function of microbial communities. This analytical journey is instrumental in unraveling the nuanced relationships existing between microorganisms and their hosts or environments. Join us as we delve into the guide, navigating the essential steps to extract meaningful insights from the complex world of microbiomes.</p>
+<p>Welcome to the fascinating world of microbiome statistical analysis! In this chapter, we embark on a journey to uncover the mysteries hidden within microbial communities. Here, we reveal the tools and techniques essential for navigating the complexities of microbiome data, unlocking insights into the structure and function of these diverse microbial ecosystems. Our analytical journey is crucial for unraveling the intricate relationships between microorganisms and their hosts or environments. Join us as we explore the essential steps to extract meaningful insights from the captivating realm of microbiomes.</p>
 
 </div>
 </div>
@@ -83,7 +89,7 @@
 
   <div class="chapter-nav">
 <div class="empty"></div>
-<div class="next"><a href="microbiome-statistical-analysis-steps.html"><span class="header-section-number">1</span> Microbiome Statistical Analysis Steps</a></div>
+<div class="next"><a href="statistical-analysis-techniques.html"><span class="header-section-number">1</span> Statistical Analysis Techniques</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -107,7 +113,7 @@
     <div class="row">
       <div class="col-12 col-md-6 mt-3">
         <p><strong><u><a class="text-light" href="https://microbiome.complexdatainsights.com"><big>IMAP:</big> Integrated Microbiome Analysis Pipelines</a></u></strong>: End-to-End Practical User Guides Using Integrated Approaches</p>
-<br><p>Authored by Teresia Mrema-Buza, Last updated: <b>2024-04-24</b>.</p>
+<br><p>Authored by Teresia Mrema-Buza, Last updated: <b>2024-04-26</b>.</p>
 <br>
 </div>
       <div class="col-12 col-md-6 mt-3">

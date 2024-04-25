@@ -16,7 +16,7 @@ rmd_files:
     - 01_statistical_analysis.Rmd
     - 99-appendix.Rmd
     - 999-references.Rmd
-# - 9999-footer.Rmd
+
   
 
 

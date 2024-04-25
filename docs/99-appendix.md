@@ -28,7 +28,7 @@ href="https://tmbuza.github.io/imap-project-overview/">Link</a></td>
 <td align="left"><a
 href="https://github.com/tmbuza/imap-essential-software/">PART
 01</a></td>
-<td align="left">Software requirement for microbiome data analysis with
+<td align="left">Software requirements for microbiome data analysis with
 Snakemake workflows</td>
 <td align="center"><a
 href="https://tmbuza.github.io/imap-essential-software/">Link</a></td>
@@ -54,8 +54,8 @@ href="https://tmbuza.github.io/imap-download-sra-reads/">Link</a></td>
 <td align="left"><a
 href="https://github.com/tmbuza/imap-read-quality-control/">PART
 04</a></td>
-<td align="left">Quality Control of Microbiome Next Generation
-Sequencing Reads</td>
+<td align="left">Quality control of microbiome next-generation
+sequencing reads</td>
 <td align="center"><a
 href="https://tmbuza.github.io/imap-read-quality-control/">Link</a></td>
 </tr>
@@ -80,7 +80,7 @@ href="https://tmbuza.github.io/imap-qiime2-bioinformatics/">Link</a></td>
 <tr class="even">
 <td align="left"><a
 href="https://github.com/tmbuza/imap-data-processing/">PART 07</a></td>
-<td align="left">Processing Output from 16S-Based microbiome
+<td align="left">Processing output from 16S-based microbiome
 bioinformatics pipelines</td>
 <td align="center"><a
 href="https://tmbuza.github.io/imap-data-preparation/">Link</a></td>
@@ -89,19 +89,31 @@ href="https://tmbuza.github.io/imap-data-preparation/">Link</a></td>
 <td align="left"><a
 href="https://github.com/tmbuza/imap-exploratory-analysis/">PART
 08</a></td>
-<td align="left">Exploratory Analysis of 16S-Based Microbiome Processed
-Data</td>
+<td align="left">Exploratory analysis of processed 16S-based microbiome
+data</td>
 <td align="center"><a
 href="https://tmbuza.github.io/imap-data-exploration/">Link</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a
+href="https://github.com/tmbuza/imap-statistical-analysis/">PART
+09</a></td>
+<td align="left">Statistical analysis of processed 16S-based microbiome
+data</td>
+<td align="center"><a
+href="https://tmbuza.github.io/imap-statistical-analysis/">Link</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a
+href="https://github.com/tmbuza/imap-machine-learning/">PART 10</a></td>
+<td align="left">Machine learning analysis of processed 16S-based
+microbiome data</td>
+<td align="center"><a
+href="https://tmbuza.github.io/imap-machine-learning/">Link</a></td>
 </tr>
 </tbody>
 </table>
 </div>
-
-
-# Read QC Rulegraph
-
-![](dags/rulegraph.svg)
 
 
 # Session Information

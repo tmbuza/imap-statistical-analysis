@@ -52,9 +52,9 @@ library(emoji) # For emojis
 
 <br>
 <br>
-![](images/stats.png){width=100%}
+![](images/stats.png){width=80%}
 
 
 ## Welcome to IMAP chapter 09 {-}
-Embarking on the exploration of microbiome statistical analysis, our guide aims to unravel the complexities of deciphering data pertaining to the structure and function of microbial communities. This analytical journey is instrumental in unraveling the nuanced relationships existing between microorganisms and their hosts or environments. Join us as we delve into the guide, navigating the essential steps to extract meaningful insights from the complex world of microbiomes.
+Welcome to the fascinating world of microbiome statistical analysis! In this chapter, we embark on a journey to uncover the mysteries hidden within microbial communities. Here, we reveal the tools and techniques essential for navigating the complexities of microbiome data, unlocking insights into the structure and function of these diverse microbial ecosystems. Our analytical journey is crucial for unraveling the intricate relationships between microorganisms and their hosts or environments. Join us as we explore the essential steps to extract meaningful insights from the captivating realm of microbiomes.
 

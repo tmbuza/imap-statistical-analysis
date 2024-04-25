@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>3 PERMANOVA: Permutation Analysis of Variance | IMAP: Integrated Microbiome Analysis Pipelines</title>
+<meta name="author" content="Teresia Mrema-Buza">
+<meta name="description" content="PERMANOVA (Permutational Multivariate Analysis of Variance) is a statistical test used to assess the significance of differences between groups of microbial communities. Particularly suited for...">
+<meta name="generator" content="bookdown 0.39 with bs4_book()">
+<meta property="og:title" content="3 PERMANOVA: Permutation Analysis of Variance | IMAP: Integrated Microbiome Analysis Pipelines">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://tmbuza.github.io/imap-statistical-analysis/permanova.html">
+<meta property="og:description" content="PERMANOVA (Permutational Multivariate Analysis of Variance) is a statistical test used to assess the significance of differences between groups of microbial communities. Particularly suited for...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3 PERMANOVA: Permutation Analysis of Variance | IMAP: Integrated Microbiome Analysis Pipelines">
+<meta name="twitter:description" content="PERMANOVA (Permutational Multivariate Analysis of Variance) is a statistical test used to assess the significance of differences between groups of microbial communities. Particularly suited for...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Sen-0.4.9/font.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM%20Mono&amp;display=swap" rel="stylesheet">
+<link href="libs/Bitter-0.4.9/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.7.0/transition.js"></script><script src="libs/bs3compat-0.7.0/tabs.js"></script><script src="libs/bs3compat-0.7.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="End-to-End Practical User Guides Using Integrated Approaches"><big>IMAP:</big> Integrated Microbiome Analysis Pipelines</a>:
+        <small class="text-muted">End-to-End Practical User Guides Using Integrated Approaches</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">IMAP-Part 09: Statistical Analysis of Microbiome Data</a></li>
+<li class="book-part">PREFACE</li>
+<li><a class="" href="statistical-analysis-techniques.html"><span class="header-section-number">1</span> Statistical Analysis Techniques</a></li>
+<li class="book-part">HYPOTHESIS TESTING</li>
+<li><a class="" href="testing-microbial-community-composition.html"><span class="header-section-number">2</span> Testing Microbial Community Composition</a></li>
+<li><a class="active" href="permanova.html"><span class="header-section-number">3</span> PERMANOVA: Permutation Analysis of Variance</a></li>
+<li><a class="" href="population-wise-multivariate-anova.html"><span class="header-section-number">4</span> Population-wise multivariate ANOVA</a></li>
+<li><a class="" href="core-taxa-multivariate-anova.html"><span class="header-section-number">5</span> Core taxa multivariate ANOVA</a></li>
+<li><a class="" href="differential-abundance-analysis.html"><span class="header-section-number">6</span> Differential Abundance Analysis</a></li>
+<li><a class="" href="wilcoxon-rank-sum-and-signed-rank-tests.html"><span class="header-section-number">7</span> Wilcoxon Rank Sum and Signed Rank Tests</a></li>
+<li><a class="" href="kruskal-wallis-test.html"><span class="header-section-number">8</span> Kruskal-Wallis test</a></li>
+<li><a class="" href="biomarker-discovery.html"><span class="header-section-number">9</span> Biomarker Discovery</a></li>
+<li class="book-part">APPENDIX</li>
+<li><a class="" href="imap-github-repos.html"><span class="header-section-number">A</span> IMAP GitHub Repos</a></li>
+<li><a class="" href="session-information.html"><span class="header-section-number">B</span> Session Information</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/tmbuza/imap-machine-learning">View book source <i class="fas fa-air-freshener"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="permanova" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> PERMANOVA: Permutation Analysis of Variance<a class="anchor" aria-label="anchor" href="#permanova"><i class="fas fa-link"></i></a>
+</h1>
+<p>PERMANOVA (Permutational Multivariate Analysis of Variance) is a statistical test used to assess the significance of differences between groups of microbial communities. Particularly suited for analyzing multivariate data like microbiome composition, PERMANOVA offers valuable insights into how different experimental conditions or treatments impact microbial community structure.</p>
+<p>Use PERMANOVA to assess the significance of differences between groups based on multivariate data. PERMANOVA is a flexible and robust method that accounts for various data characteristics and can provide valuable insights into the factors driving variation in the data.Permutational Multivariate Analysis of Variance {#permanova}</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="permanova.html#cb3-1" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(microViz))</span>
+<span id="cb3-2"><a href="permanova.html#cb3-2" tabindex="-1"></a><span class="fu">library</span>(dplyr) </span>
+<span id="cb3-3"><a href="permanova.html#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="permanova.html#cb3-4" tabindex="-1"></a>bray_perm <span class="ot">&lt;-</span> psextra_log10p_asin_bray_dist <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="permanova.html#cb3-5" tabindex="-1"></a>  <span class="fu">dist_permanova</span>(</span>
+<span id="cb3-6"><a href="permanova.html#cb3-6" tabindex="-1"></a>    <span class="at">seed =</span> <span class="dv">1234</span>, <span class="co"># for set.seed to ensure reproducibility of random process</span></span>
+<span id="cb3-7"><a href="permanova.html#cb3-7" tabindex="-1"></a>    <span class="at">n_processes =</span> <span class="dv">1</span>, <span class="at">n_perms =</span> <span class="dv">99</span>, <span class="co"># you should use at least 999!</span></span>
+<span id="cb3-8"><a href="permanova.html#cb3-8" tabindex="-1"></a>    <span class="at">variables =</span> <span class="st">"bmi_group"</span></span>
+<span id="cb3-9"><a href="permanova.html#cb3-9" tabindex="-1"></a>  )</span>
+<span id="cb3-10"><a href="permanova.html#cb3-10" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="permanova.html#cb3-11" tabindex="-1"></a><span class="fu">perm_get</span>(bray_perm) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb3-12"><a href="permanova.html#cb3-12" tabindex="-1"></a>           Df  SumOfSqs         R2        F <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)</span>
+<span id="cb3-13"><a href="permanova.html#cb3-13" tabindex="-1"></a>bmi_group   <span class="dv">2</span> <span class="fl">0.1233611</span> <span class="fl">0.04544245</span> <span class="fl">5.212833</span>   <span class="fl">0.01</span></span>
+<span id="cb3-14"><a href="permanova.html#cb3-14" tabindex="-1"></a>Residual  <span class="dv">219</span> <span class="fl">2.5913059</span> <span class="fl">0.95455755</span>       <span class="cn">NA</span>     <span class="cn">NA</span></span>
+<span id="cb3-15"><a href="permanova.html#cb3-15" tabindex="-1"></a>Total     <span class="dv">221</span> <span class="fl">2.7146670</span> <span class="fl">1.00000000</span>       <span class="cn">NA</span>     <span class="cn">NA</span></span>
+<span id="cb3-16"><a href="permanova.html#cb3-16" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="permanova.html#cb3-17" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="permanova.html#cb3-18" tabindex="-1"></a><span class="fu">info_get</span>(bray_perm)</span>
+<span id="cb3-19"><a href="permanova.html#cb3-19" tabindex="-1"></a>psExtra info<span class="sc">:</span></span>
+<span id="cb3-20"><a href="permanova.html#cb3-20" tabindex="-1"></a>tax_agg <span class="ot">=</span> <span class="st">"Genus"</span> tax_trans <span class="ot">=</span> <span class="st">"log10p"</span> dist_method <span class="ot">=</span> <span class="st">"bray"</span> </span></code></pre></div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="testing-microbial-community-composition.html"><span class="header-section-number">2</span> Testing Microbial Community Composition</a></div>
+<div class="next"><a href="population-wise-multivariate-anova.html"><span class="header-section-number">4</span> Population-wise multivariate ANOVA</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#permanova"><span class="header-section-number">3</span> PERMANOVA: Permutation Analysis of Variance</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/tmbuza/imap-machine-learning/blob/gh-pages/01_statistical_analysis.Rmd">View source <i class="fas fa-air-freshener"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/tmbuza/imap-machine-learning/edit/gh-pages/01_statistical_analysis.Rmd">Edit this page <i class="fas fa-air-freshener"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6 mt-3">
+        <p><strong><u><a class="text-light" href="https://microbiome.complexdatainsights.com"><big>IMAP:</big> Integrated Microbiome Analysis Pipelines</a></u></strong>: End-to-End Practical User Guides Using Integrated Approaches</p>
+<br><p>Authored by Teresia Mrema-Buza, Last updated: <b>2024-04-26</b>.</p>
+<br>
+</div>
+      <div class="col-12 col-md-6 mt-3">
+        <p>Note: This practical guide was created using the <a class="text-light" href="https://bookdown.org/yihui/bookdown/">bookdown</a> R package, styled with the modern bs4_book format.</p>
+      </div>
+
+    </div>
+  </div>
+</footer>
+</body>
+</html>
