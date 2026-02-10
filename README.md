@@ -1,6 +1,19 @@
-# IMAP PART 09: Statistical Analysis
+# iMAP Part 09 — Statistical Analysis
 
----In Progress---
+This repository contains the **statistical analysis and inference stage** of the iMAP (Integrated Microbiome Analysis Pipeline) framework.
+
+Part 09 focuses on formal statistical testing of processed 16S-based microbiome data, building directly on the exploratory insights established in Part 08.
+The emphasis is on **assessing evidence, quantifying uncertainty, and supporting biologically meaningful conclusions**, rather than applying tests in isolation.
+
+This component represents the transition from exploratory interpretation to statistical decision-making and downstream claims, and is intended to be used
+after data structure, variability, and experimental context have been examined.
+
+For pipeline structure and upstream context, see the **iMAP Project Overview** and the **Exploratory Analysis (Part 08)** component.
+
+## Related iMAP Repositories
+
+Below is a summary of the iMAP repositories, showing how this statistical analysis stage fits within the full pipeline. Each repository represents a distinct step in the workflow;
+together they document the complete analytical structure of iMAP.
 
 <br>
 
